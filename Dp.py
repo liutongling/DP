@@ -41,6 +41,9 @@
 #
 #
 #  Related Topics 树 深度优先搜索 动态规划 二叉树 👍 2078 👎 0
+import queue
+
+from winerror import NOERROR
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
@@ -58,5 +61,47 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: int
         """
+        # 使用队列遍历每层的结点数
+        q = queue.Queue()
+        res = [0,0]
+        q.put([root])
+
+        while q.qsize()!=0:
+            s = q.get()
+            #print(q.qsize())
+            q2 = []
+            count = 0
+            for j in s:
+                if j.left != None:
+                    q2.append(j.left)
+                if j.right != None:
+                    q2.append(j.right)
+                count+=j.val
+            res.append(count)
+            if len(q2) != 0:
+                q.put(q2)
+
+        maxnum = [0]*len(res)
+        for i in range(2,len(res)):
+
+            res[i] = res[i] + maxnum[i-2]
+            maxnum[i] = max(maxnum[i-1],res[i])
+        return max(res[-1],res[-2])
+
+
+
+
+
 
 # leetcode submit region end(Prohibit modification and deletion)
+if __name__ == '__main__':
+    root = TreeNode(4)
+    l = TreeNode(1)
+    ll = TreeNode(2)
+    lll = TreeNode(3)
+
+    root.left = l
+    l.left = ll
+    ll.left = lll
+    s = Solution()
+    s.rob(root)
