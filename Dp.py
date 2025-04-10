@@ -90,6 +90,5 @@ class Solution(object):
 if __name__ == '__main__':
     sdf
     s = Solution()
-    sdf
-    # 加一些东西
-    ssdf
+    # root = TreeNode(3)
+    # root.left = TreeNode(2)
