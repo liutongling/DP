@@ -56,37 +56,30 @@ class TreeNode(object):
 # 使用动态规划进行解决问题
 
 class Solution(object):
+    def __init__(self):
+        f = {}
+        g = {}
+    def dfs(self,Node:TreeNode):
+        if Node == None:
+            self.f[None] = 0
+            self.g[None] = 0
+            return
+        else:
+            self.dfs(Node.right)
+            self.dfs(Node.left)
+            self.f[Node] = Node.val+self.g[Node.left] + self.g[Node.right]
+            self.g[Node] = max(self.f[Node.left],self.g[Node.left]) + max(self.f[Node.right],self.g[Node.right])
     def rob(self, root):
         """
         :type root: Optional[TreeNode]
         :rtype: int
         """
         # 使用队列遍历每层的结点数
-        q = queue.Queue()
-        res = [0,0]
-        q.put([root])
+        self.dfs(root)
+        return max(self.f[root],self.g[root])
 
-        while q.qsize()!=0:
-            s = q.get()
-            #print(q.qsize())
-            q2 = []
-            count = 0
-            for j in s:
-                if j.left != None:
-                    q2.append(j.left)
-                if j.right != None:
-                    q2.append(j.right)
-                count+=j.val
-            res.append(count)
-            if len(q2) != 0:
-                q.put(q2)
 
-        maxnum = [0]*len(res)
-        for i in range(2,len(res)):
 
-            res[i] = res[i] + maxnum[i-2]
-            maxnum[i] = max(maxnum[i-1],res[i])
-        return max(res[-1],res[-2])
 
 
 
