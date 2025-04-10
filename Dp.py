@@ -88,13 +88,5 @@ class Solution(object):
 
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
-    root = TreeNode(4)
-    l = TreeNode(1)
-    ll = TreeNode(2)
-    lll = TreeNode(3)
-
-    root.left = l
-    l.left = ll
-    ll.left = lll
     s = Solution()
-    s.rob(root)
+    
