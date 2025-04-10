@@ -92,3 +92,5 @@ if __name__ == '__main__':
     s = Solution()
     # root = TreeNode(3)
     # root.left = TreeNode(2)
+    zai = TreeNode(3)
+    root = TreeNode(2)
