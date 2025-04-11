@@ -80,17 +80,26 @@ class Solution(object):
 
 
 
-
-
-
-
+    def countSymmetricIntegers(self, low: int, high: int) -> int:
+        res = 0
+        for i in range(low,high+1):
+            temp = i
+            t = []
+            while temp!=0:
+                k = temp % 10
+                temp = temp // 10
+                t.append(k)
+            count = 0
+            if len(t) %2 ==0:
+                for j in range(len(t)//2):
+                    count += (t[j] - t[len(t)-j-1])
+                if count  == 0:
+                    res += 1
+        # print(res)
+        return res
 
 
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
-    sdf
     s = Solution()
-    # root = TreeNode(3)
-    # root.left = TreeNode(2)
-    zai = TreeNode(3)
-    root = TreeNode(2)
+    s.countSymmetricIntegers(1,100)
