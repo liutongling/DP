@@ -43,6 +43,7 @@
 #  Related Topics 树 深度优先搜索 动态规划 二叉树 👍 2078 👎 0
 import queue
 
+#from PyQt5.QtXml.QXmlSimpleReader import setFeature
 from winerror import NOERROR
 
 
@@ -144,8 +145,46 @@ class Solution(object):
         # print(res)
         return res
 
+    def checkDynasty(self, places: list) -> bool:
+        temp = places.sort()
+        count = 0
+        for i in range(4):
+            if places[i]==0:
+                count += 1
+            else:
+                if places[i+1] == places[i]:
+                    return False
+                count -= (places[i+1] - places[i]-1)
+
+        return True if count>=0 else False
+
+    def countGoodNumbers(self, n: int) -> int:
+
+        return self.myPow(5,(n+1)//2)*self.myPow(4,n//2)
+
+    def dfsPow(self,x:float,n:int):
+        if n == 1:
+            return x
+        if n == 0:
+            return 1
+
+        return self.dfsPow(x,(n+1)//2)*self.dfsPow(x,n//2)
+
+
+    def myPow(self, x: float, n: int) -> float:
+        if n < 0:
+            x=1/x
+            n = -n
+        return self.dfsPow(x,n)
+
+    def myPow(self, x: float, n: int) -> float:
+        if n < 0:
+            x=1/x
+            n = -n
+        return self.dfsPow(x,n)
 
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
     s = Solution()
-    s.countSymmetricIntegers(1,100)
+    val = s.myPow(2,-200000000)
+    print(val)
