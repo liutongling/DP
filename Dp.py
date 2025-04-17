@@ -194,6 +194,24 @@ class Solution(object):
                         count += 1
         return count
 
+    def countPairs(self, nums: list, k: int) -> int:
+        n = len(nums)
+        count = 0
+        for i in range(n):
+            for j in range(i+1,n):
+                if nums[i]==nums[j] and (i*j%k)==0:
+                    count+=1
+        return count
+    def maxSubArray(self, nums: list) -> int:
+        n = len(nums)
+        res = min(nums) * len(n)
+        for i in range(n):
+            count = 0
+            for j in range(i,n):
+                count += nums[j]
+                if res < count:
+                    res = count
+        return res
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
     s = Solution()
