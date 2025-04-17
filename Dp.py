@@ -211,8 +211,8 @@ class Solution(object):
                 count += nums[j]
                 if res < count:
                     res = count
-        return res
-    sls
+        return ret
+    slstst
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
     s = Solution()
