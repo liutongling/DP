@@ -211,10 +211,19 @@ class Solution(object):
                 count += nums[j]
                 if res < count:
                     res = count
-        return ret
-    slstst
+        return res
+    def longestValidParentheses(self, s: str) -> int:
+        n = len(s)
+        dp = [0] * n
+        for j in range(n):
+            if s[j] == ')':
+                if j >0  and s[j-1] == '(':
+                    dp[j] = dp[j-2] + 2
+                elif j-dp[j-1]-1 >= 0 and s[j-dp[j-1]-1] == '(':
+                    dp[j] = dp[j-1] + 2 + dp[j-dp[j-1]-2]
+        return max(dp)
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
     s = Solution()
-    val = s.countGoodTriplets([3,0,1,1,9,7],7,2,3)
+    val = s.longestValidParentheses('(()()()()(((()))')
     print(val)
