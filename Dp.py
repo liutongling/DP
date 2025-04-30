@@ -193,7 +193,7 @@ class Solution(object):
                         print([arr[i],arr[j],arr[k]])
                         count += 1
         return count
-
+    # 2176. 统计数组中相等且可以被整除的数对
     def countPairs(self, nums: list, k: int) -> int:
         n = len(nums)
         count = 0
@@ -202,6 +202,15 @@ class Solution(object):
                 if nums[i]==nums[j] and (i*j%k)==0:
                     count+=1
         return count
+    def countPairs1(self, nums: list, k: int) -> int:
+        n = len(nums)
+        count = 0
+        for i in range(n):
+            for j in range(i+1,n):
+                if nums[i]==nums[j] and (i*j%k)==0:
+                    count+=1
+        return count
+    # 2176. 统计数组中相等且可以被整除的数对
     def maxSubArray(self, nums: list) -> int:
         n = len(nums)
         res = min(nums) * len(n)
@@ -212,6 +221,7 @@ class Solution(object):
                 if res < count:
                     res = count
         return res
+    # 有效括号的动态规划写法
     def longestValidParentheses(self, s: str) -> int:
         n = len(s)
         dp = [0] * n
@@ -222,8 +232,67 @@ class Solution(object):
                 elif j-dp[j-1]-1 >= 0 and s[j-dp[j-1]-1] == '(':
                     dp[j] = dp[j-1] + 2 + dp[j-dp[j-1]-2]
         return max(dp)
+
+    def maxSubArray(self, nums: list) -> int:
+        current_max = nums[0]
+        global_max = nums[0]
+        for i in range(1,len(nums)):
+            current_max = max(current_max,current_max+nums[i])
+            global_max = max(global_max,current_max)
+        return global_max
+
+    def countSubarrays(self, nums: list) -> int:
+        n = len(nums)
+        count = 0
+        for i in range(n-3):
+            if (nums[i] + nums[i+2])*2 == nums[i+1]:
+                count += 1
+        return count
+    # 乘船问题
+    #
+    def min_boats(self,people, limit):
+        people.sort()
+        left = 0
+        right = len(people) - 1
+        boats = 0
+        while left <= right:
+            if people[left] + people[right] <= limit:
+                left += 1
+            right -= 1
+            boats += 1
+        return boats
+
+    def findNumbers(self, nums: list) -> int:
+        count = 0
+        res = 0
+        s = []
+        while sum(nums)!=0:
+            nums =list(map(lambda x:x//10,nums))
+            count += 1
+            for i,j in enumerate(nums):
+                if j ==0 and count %2==0 and i not in s:
+                    res += 1
+                if j == 0 :
+                    s.append(i)
+
+        return res
+
+    def findNumbers1(self, nums: list) -> int:
+        res = 0
+        for i in nums:
+            count = 0
+            while i != 0:
+                i//=10
+                count +=1
+            if count %2==0:
+                res +=1
+
+        return res
+
+
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
     s = Solution()
-    val = s.longestValidParentheses('(()()()()(((()))')
-    print(val)
+
+    # 示例
+    print(s.findNumbers([12,345,2,6,7896]))  # 输出: 2
