@@ -289,10 +289,51 @@ class Solution(object):
 
         return res
 
+    def pushDominoes(self, dominoes: str) -> str:
+        # 从左向右表示右倒的多米诺骨牌
+        n = len(dominoes)
+        right = [n]*n
+        left = [n]*n
+        j = 0
+        count = n
+        while j<n:
+
+            if dominoes[j] == "R":
+                count = 0
+            elif dominoes[j] == '.' and count != n:
+                count += 1
+                right[j] = count
+            else:
+                count = n
+            j += 1
+        j = n-1
+        count = n
+        while j>=0:
+            if dominoes[j] =='L':
+                count = 0
+            elif dominoes[j]=='.' and count !=n:
+                count+=1
+                left[j] = count
+            else:
+                count =n
+            j-=1
+        print(right)
+        print(left)
+        res = ''
+        for i in range(n):
+            if left[i]==right[i] and left[i]==n:
+                res+=dominoes[i]
+            elif left[i]==right[i] and left[i]!=n:
+                res+='.'
+            if left[i]<right[i]:
+                res+='L'
+            elif left[i]>right[i]:
+                res+='R'
+        return res
 
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
     s = Solution()
 
     # 示例
-    print(s.findNumbers([12,345,2,6,7896]))  # 输出: 2
+    print(s.pushDominoes(".L.R...LR..L.."))  # 输出: 2
