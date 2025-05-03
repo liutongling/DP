@@ -331,9 +331,20 @@ class Solution(object):
                 res+='R'
         return res
 
+    def lengthOfLIS(self, nums: list) -> int:
+        dp =[1] * len(nums)
+        n = len(nums)
+        for i in range(n):
+            temp = 0
+            for j in range(i):
+                if nums[i]>nums[j] and dp[j] > temp:
+                    temp = dp[j]
+                    dp[i] = dp[j]+1
+        return max(dp)
+
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
     s = Solution()
 
     # 示例
-    print(s.pushDominoes(".L.R...LR..L.."))  # 输出: 2
+    print(s.lengthOfLIS([10,9,2,5,3,7,101,18]))  # 输出: 2
