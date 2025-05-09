@@ -42,10 +42,13 @@
 #
 #  Related Topics 树 深度优先搜索 动态规划 二叉树 👍 2078 👎 0
 import queue
-
+from functools import cache
+from math import inf
+from Prim import Prim
+from pywin32_testutil import testmain
 #from PyQt5.QtXml.QXmlSimpleReader import setFeature
 from winerror import NOERROR
-
+from queue import PriorityQueue
 
 # leetcode submit region begin(Prohibit modification and deletion)
 # Definition for a binary tree node.
@@ -341,10 +344,112 @@ class Solution(object):
                     temp = dp[j]
                     dp[i] = dp[j]+1
         return max(dp)
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        col = len(text1)
+        row = len(text2)
+        #dp = [[0]*(col+1)]*(row+1)
+        dp = [[0 for i in range(col+1)] for j in range(row+1)]
+        for i in range(row):
+            for j in range(col):
+                temp = (1 if text2[i] == text1[j] else 0)
+                dp[i+1][j+1] = max(dp[i][j+1],dp[i+1][j],dp[i][j]+temp)
+        return dp[row][col]
+
+    def minDistance(self, word1: str, word2: str) -> int:
+        col = len(word1)
+        row = len(word2)
+        dp = [[0 for i in range(col+1)] for j in range(row+1)]
+        for i in range(row+1):
+            dp[i][0] = i
+        for j in range(col+1):
+            dp[0][j] = j
+        for i in range(row):
+            for j in range(col):
+                temp = (0 if word2[i] == word1[j] else 1)
+                dp[i+1][j+1] = min(dp[i][j+1]+1,dp[i+1][j]+1,dp[i][j]+temp)
+        return dp[row][col]
+
+
+    def maxStudents(self, seats: list) -> int:
+
+        def isSingleRowCompliant(status: int, row: int) -> bool:
+            for j in range(n):
+                if ((status >> j) & 1) == 1:
+                    if seats[row][j] == '#':
+                        return False
+                    if j > 0 and ((status >> (j - 1)) & 1) == 1:
+                        return False
+            return True
+
+        def isCrossRowsCompliant(status: int, upperRowStatus: int) -> bool:
+            for j in range(n):
+                if ((status >> j) & 1) == 1:
+                    if j > 0 and ((upperRowStatus >> (j - 1)) & 1) == 1:
+                        return False
+                    if j < n - 1 and ((upperRowStatus >> (j + 1)) & 1) == 1:
+                        return False
+            return True
+
+        @cache
+        def dp(row: int, status: int) -> int:
+            if not isSingleRowCompliant(status, row):
+                return -inf
+            students = bin(status).count('1')
+            if row == 0:
+                return students
+            mx = 0
+            for upperRowStatus in range(2 ** n):
+                if isCrossRowsCompliant(status, upperRowStatus):
+                    mx = max(mx, dp(row - 1, upperRowStatus))
+            return students + mx
+
+        m, n = len(seats), len(seats[0])
+        mx = 0
+        for i in range(2 ** n):
+            mx = max(mx, dp(m - 1, i))
+        return mx
+
+    def minTimeToReach(self, moveTime: list) -> int:
+        def dfs(arr:list,loc:list,i,j,flag):
+            if i==0 and j==0:
+                return
+            # 定义四个方向
+            dir = [[-1,0],[1,0],[0,-1],[0,1]]
+            for q in range(len(dir)):
+                dir[q][0] = dir[q][0] + i
+                dir[q][1] = dir[q][1] + j
+            minnum = 10000000000
+            nexti = 0
+            nextj = 0
+            for n in range(len(dir)):
+                x = dir[n][0]
+                y = dir[n][1]
+                if  x>= len(arr) or y >= len(arr[0]) or loc[x][y] == 1:
+                    continue
+                else:
+                    if minnum>arr[x][y] + pow(2,flag%2):
+                        nexti = x
+                        nextj = y
+                        minnum = arr[x][y] + pow(2,flag%2)
+
+            loc[nexti][nextj] = 1
+            arr[nexti][nextj] = minnum + arr[i][j]
+            flag += 1
+            dfs(arr,loc,nexti,nextj,flag)
+
+        row = len(moveTime) - 1
+        col = len(moveTime[0]) - 1
+        moveTime[row][col] = 0
+        loc = [[0 for i in range(col+1)] for j in range(row+1)]
+        loc[row][col] = 1
+        dfs(moveTime,loc,row,col,flag=0)
+        return moveTime[0][0]
+
+
 
 # leetcode submit region end(Prohibit modification and deletion)
 if __name__ == '__main__':
-    s = Solution()
-
-    # 示例
-    print(s.lengthOfLIS([10,9,2,5,3,7,101,18]))  # 输出: 2
+    G1 = [[0,20,inf,inf,inf,15,inf],[20,0,13,inf,inf,inf,inf],[inf,13,0,18,inf,inf,23],[inf,inf,18,0,7,inf,inf],[inf,inf,inf,7,0,26,inf],[15,inf,inf,inf,26,0,9],[inf,inf,23,inf,inf,9,0]]
+    G2 =[[0,4,inf,inf,inf,inf,inf,8,inf],[4,0,8,inf,inf,inf,inf,11,inf],[inf,8,0,7,inf,4,inf,inf,2],[inf,inf,7,0,9,14,inf,inf,inf],[inf,inf,inf,9,0,10,inf,inf,inf],[inf,inf,4,14,10,0,2,inf,inf],[inf,inf,inf,inf,inf,2,0,1,6],[8,11,inf,inf,inf,inf,1,0,7],[inf,inf,2,inf,inf,inf,6,7,0]]
+    s = Prim(7,G1)
+    print(s.prim_work())
