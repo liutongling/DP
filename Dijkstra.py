@@ -15,7 +15,6 @@ class Dijkstra:
         pointNode = set([])
         self.pq.put((0,self.node))
         while not ((pointNode & self.point) ==self.point):
-
             #print("****")
             next = self.pq.get()
             nextD = next[0]

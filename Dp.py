@@ -456,9 +456,7 @@ if __name__ == '__main__':
     G2 = [[0,4,inf,inf,inf,inf,inf,8,inf],[4,0,8,inf,inf,inf,inf,11,inf],[inf,8,0,7,inf,4,inf,inf,2],[inf,inf,7,0,9,14,inf,inf,inf],[inf,inf,inf,9,0,10,inf,inf,inf],[inf,inf,4,14,10,0,2,inf,inf],[inf,inf,inf,inf,inf,2,0,1,6],[8,11,inf,inf,inf,inf,1,0,7],[inf,inf,2,inf,inf,inf,6,7,0]]
     G3 = [[0,20,inf,60,15],[inf,0,49,inf,inf],[inf,inf,0,inf,inf],[inf,inf,30,0,inf],[inf,inf,inf,48,0]]
     #s = Kruskal(G2,9)
-
-    while not True:
-        print("***")
-    ss = Dijkstra(G3,0)
+    G4 = [[0,20,inf,60,15],[inf,0,42,inf,inf],[inf,inf,0,inf,inf],[inf,inf,30,0,inf],[inf,inf,inf,23,0]]
+    ss = Dijkstra(G4,0)
     #print(s.kruskal_work())
     print(ss.dijkstra_work())
