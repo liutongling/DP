@@ -1,6 +1,5 @@
 import math
 
-from intake.util_tests import temp_conf
 
 
 class TreeNode:
@@ -20,24 +19,40 @@ class Solution:
             elif root.right==None and root.left!=None:
                 return  self.minDepth(root.left)+1
     def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+        if root ==None:
+            return False
         def dfs(root:TreeNode,Sum:int)->bool:
-            if root==None:
-                return True if Sum==0 else False
+            if root.left==None and root.right==None:
+                return True if Sum==root.val else False
             else:
+                lr = False
+                ll = False
                 Sum -= root.val
-                return (dfs(root.left,Sum) or dfs(root.right,Sum))
-        #temp = dfs(root)
-        return dfs(root)
+                if root.left !=None:
+                    ll = dfs(root.left,Sum)
+                if root.right!=None:
+                    lr = dfs(root.right,Sum)
+                return lr or ll
+        return dfs(root,targetSum)
+    def Complete_BackPack(self,W:list,C:list,M:int) -> int:
+        # 创建一个二维表格并且初始化好边界
+        row = len(W)+1
+        col = M+1
+        dp = [[0 for i in range(col)] for j in range(row)]
+
+        # 开始更新状态表格
+        for i in range(1,row):
+            for j in range(1,col):
+                k = j//W[i-1]
+                temp = 0
+                while k>=0:
+                    temp= dp[i-1][j-k*W[i-1]]+k*C[i-1] if temp < dp[i-1][j-k*W[i-1]]+k*C[i-1] else temp
+                    k-=1
+                dp[i][j] = temp
+        print(dp)
+        return dp[row-1][col-1]
 
 if __name__ == '__main__':
-    snode1 = TreeNode(2)
-    snode2 = TreeNode(3)
-    snode3 = TreeNode(4)
-    snode4 = TreeNode(5)
-    snode5 = TreeNode(6)
-    snode1.right = snode2
-    snode2.right = snode3
-    snode3.right = snode4
-    snode4.right = snode5
+
     s = Solution()
-    print(s.minDepth(snode1))
+    print(s.Complete_BackPack([2,3,4,7],[1,3,5,9],10))
