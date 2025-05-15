@@ -1,5 +1,6 @@
 import math
 
+from EverDay import EverDay
 
 
 class TreeNode:
@@ -54,5 +55,6 @@ class Solution:
 
 if __name__ == '__main__':
 
-    s = Solution()
-    print(s.Complete_BackPack([2,3,4,7],[1,3,5,9],10))
+    s = EverDay()
+    #print(s.spin_char('a',3))
+    print(s.getLongestSubsequence(words = ["c"], groups = [0]))
