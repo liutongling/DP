@@ -119,3 +119,20 @@ class EverDay:
             if g!=groups[i+1] or i == n-1:
                 ans.append(words[i])
         return ans
+
+    def permute(self, nums: list) -> list:
+        n = len(nums)
+        opt = [0 for _ in range(n)]
+        ans = []
+        def dfs_permute(nums:list,n,temp:list):
+            if n == len(nums):
+                ans.append(temp[:])
+            for i in range(len(nums)):
+                if opt[i] ==0:
+                    temp.append(nums[i])
+                    opt[i] = 1
+                    dfs_permute(nums,n+1,temp)
+                    opt[i] = 0
+                    temp.pop(-1)
+        dfs_permute(nums, 0, [])
+        return ans
