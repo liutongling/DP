@@ -57,4 +57,4 @@ if __name__ == '__main__':
 
     s = EverDay()
     #print(s.spin_char('a',3))
-    print(s.getLongestSubsequence(words = ["c"], groups = [0]))
+    print(s.permuteUnique([1,1,2]))

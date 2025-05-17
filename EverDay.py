@@ -93,6 +93,27 @@ class EverDay:
             return res
 
         return dfs(nums, 0, [])
+    # End**********************************
+    #90. 子集 II
+    def subsetsWithDup(self, nums: list) -> list:
+        res = []
+        opt = [0 for i in range(len(nums))]
+        def dfs(nums:list,n,temp:list):
+            if n == len(nums):
+                res.append(temp[:])
+                return
+            opt[n] = 1
+            temp.append(nums[n])
+            if n>0 and opt[n-1] == 0 and nums[n] == nums[n-1]:
+                pass
+            else:dfs(nums,n+1,temp)
+            opt[n] = 0
+            temp.pop(-1)
+            dfs(nums,n+1,temp)
+        dfs(nums,0,[])
+        return res
+    # End**********************************
+
     #2900. 最长相邻不相等子序列 I
     def getLongestSubsequence0(self, words: list, groups: list) -> list:
         n = len(words)
@@ -120,6 +141,8 @@ class EverDay:
                 ans.append(words[i])
         return ans
 
+    # End**********************************
+    #46. 全排列
     def permute(self, nums: list) -> list:
         n = len(nums)
         opt = [0 for _ in range(n)]
@@ -135,4 +158,25 @@ class EverDay:
                     opt[i] = 0
                     temp.pop(-1)
         dfs_permute(nums, 0, [])
+        return ans
+    # End**********************************
+    #全排列 II
+    def permuteUnique(self, nums: list) -> list:
+        ans = [] # 存储所有的结果
+        opt = [0 for i in range(len(nums))]
+        nums.sort()
+        def dfs(nums:list,n:int,temp:list):
+            if n==len(nums):
+                ans.append(temp[:])
+                return
+            ad = set()
+            for i in range(len(nums)):
+                if opt[i]==0 and nums[i] not in ad:
+                    ad.add(nums[i])
+                    opt[i] = 1
+                    temp.append(nums[i])
+                    dfs(nums,n+1,temp)
+                    opt[i] = 0
+                    temp.pop()
+        dfs(nums,0,[])
         return ans
