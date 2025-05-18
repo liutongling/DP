@@ -1,3 +1,6 @@
+from collections import deque, Counter
+
+
 class EverDay:
     def __init__(self):
         #n皇后使用的变量
@@ -180,3 +183,62 @@ class EverDay:
                     temp.pop()
         dfs(nums,0,[])
         return ans
+    #75. 颜色分类
+    def sortColors(self, nums: list) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        left = 0
+        right = len(nums) - 1
+        i = 0
+        while i <= right:
+            if nums[i] == 0 and i == left:
+                left += 1
+                i += 1
+            elif nums[i] == 0 and i !=left:
+                nums[i],nums[left] = nums[left],nums[i]
+                left += 1
+            elif nums[i] == 1:
+                i += 1
+            elif nums[i] == 2:
+                nums[i],nums[right] = nums[right],nums[i]
+                right -= 1
+    #361. 轰炸敌人
+    def maxKilledEnemies(self, grid: list) -> int:
+        m = len(grid)
+        n = len(grid[0])
+        setDict = {}
+        # 这是找列有多少个人可以炸
+        for i in range(m):
+            count = 0
+            idx = []
+            for j in range(n):
+                if grid[i][j] == 'W':
+                    count = 0
+                    for k in idx:
+                        setDict[k] = count
+                    idx = []
+                if grid[i][j] == 'E':
+                    count+=1
+                if grid[i][j] == '0':
+                    idx.append(i*n+j)
+
+        print(setDict)
+
+
+class FirstUnique:
+    def __init__(self, nums: list):
+        self.HelpDueue = deque(nums)
+        self.HelpDict = Counter(nums)
+
+    def showFirstUnique(self) -> int:
+        while self.HelpDueue and self.HelpDict[self.HelpDueue[0]]>1:
+            self.HelpDueue.popleft()
+        if self.HelpDueue:
+            return self.HelpDueue[0]
+        return -1
+    def add(self, value: int) -> None:
+        self.HelpDict[value]+=1
+        self.HelpDueue.append(value)
+
+

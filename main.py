@@ -1,6 +1,7 @@
 import math
+from collections import Counter
 
-from EverDay import EverDay
+from EverDay import EverDay, FirstUnique
 
 
 class TreeNode:
@@ -54,7 +55,8 @@ class Solution:
         return dp[row-1][col-1]
 
 if __name__ == '__main__':
+    print(Counter([1,2,3,4,5,6,1]))
 
-    s = EverDay()
-    #print(s.spin_char('a',3))
-    print(s.permuteUnique([1,1,2]))
+
+
+
