@@ -225,7 +225,7 @@ class EverDay:
 
         print(setDict)
 
-
+# 1429 第一个唯一数字
 class FirstUnique:
     def __init__(self, nums: list):
         self.HelpDueue = deque(nums)
