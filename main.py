@@ -1,6 +1,10 @@
 import math
 from collections import Counter
 
+from fontTools.misc.cython import returns
+from numpy.lib.polynomial import roots
+from scipy.ndimage import prewitt
+
 from EverDay import EverDay, FirstUnique
 
 
@@ -54,9 +58,10 @@ class Solution:
         print(dp)
         return dp[row-1][col-1]
 
-if __name__ == '__main__':
-    print(Counter([1,2,3,4,5,6,1]))
 
+if __name__ == '__main__':
+
+    print()
 
 
 

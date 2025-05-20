@@ -207,23 +207,76 @@ class EverDay:
     def maxKilledEnemies(self, grid: list) -> int:
         m = len(grid)
         n = len(grid[0])
-        setDict = {}
-        # 这是找列有多少个人可以炸
+        dpRow = [[0 for _ in range(n)] for _ in range(m)]
+        dpCol = [[0 for _ in range(n)] for _ in range(m)]
+        # 这次遍历表示每行有多少敌人能够炸
         for i in range(m):
-            count = 0
-            idx = []
+            pre = 0
             for j in range(n):
-                if grid[i][j] == 'W':
-                    count = 0
-                    for k in idx:
-                        setDict[k] = count
-                    idx = []
-                if grid[i][j] == 'E':
-                    count+=1
-                if grid[i][j] == '0':
-                    idx.append(i*n+j)
+                if grid[i][j] == "E":
+                    pre += 1
+                elif grid[i][j] == "W":
+                    pre = 0
+                elif grid[i][j] =="0":
+                    dpRow[i][j] += pre
+            pre = 0
+            for k in range(n-1,-1,-1):
+                if grid[i][k] == "E":
+                    pre += 1
+                elif grid[i][k] == "W":
+                    pre = 0
+                elif grid[i][k] =="0":
+                    dpRow[i][k] += pre
+        for j in range(n):
+            pre = 0
+            for i in range(m):
+                if grid[i][j] == "E":
+                    pre += 1
+                elif grid[i][j] == "W":
+                    pre = 0
+                elif grid[i][j] =="0":
+                    dpCol[i][j] += pre
+            pre = 0
+            for k in range(m-1,-1,-1):
+                if grid[k][j] == "E":
+                    pre += 1
+                elif grid[k][j] == "W":
+                    pre = 0
+                elif grid[k][j] =="0":
+                    dpCol[k][j] += pre
+        res = 0
+        for i in range(m):
+            for j in range(n):
+                temp = dpRow[i][j]+ dpCol[i][j]
+                if res < temp:
+                    res = temp
+        return res
 
-        print(setDict)
+
+
+
+    def triangleType(self, nums: list) -> str:
+        a = nums[0]
+        b = nums[1]
+        c = nums[2]
+        if a > b:
+            a , b = b , a
+        if a > c:
+            a , c = c , a
+        if c < b:
+            c , b = b ,c
+        if c < a + b:
+            if a == b and a == c:
+                return "equilateral"
+            if a==b or b == c:
+                return "isosceles"
+            if a != b and b!=c:
+                return "scalene"
+        else:
+            return "none"
+
+
+
 
 # 1429 第一个唯一数字
 class FirstUnique:
