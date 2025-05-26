@@ -6,6 +6,8 @@ from numpy.lib.polynomial import roots
 from scipy.ndimage import prewitt
 
 from EverDay import EverDay, FirstUnique
+from bound import branch_and_bound_knapsack
+from bound import bound
 
 
 class TreeNode:
@@ -61,7 +63,17 @@ class Solution:
 
 if __name__ == '__main__':
 
-    print()
-
-
-
+    # capacity = 10
+    # weights = [4, 7, 5, 3]
+    # values = [40, 42, 25, 12]
+    # n = len(values)
+    #
+    # max_profit, selected_items = branch_and_bound_knapsack(capacity, weights, values, n)
+    #
+    # print("最大价值:", max_profit)
+    # print("选择的物品索引:", selected_items)
+    # print("对应的重量:", [weights[i] for i in selected_items])
+    # print("对应的价值:", [values[i] for i in selected_items])
+    s = EverDay()
+    res=s.permuteUnique([1,1,2])
+    print(len(res))

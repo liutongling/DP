@@ -1,6 +1,7 @@
 from collections import deque, Counter
 
 
+
 class EverDay:
     def __init__(self):
         #n皇后使用的变量
@@ -183,6 +184,8 @@ class EverDay:
                     temp.pop()
         dfs(nums,0,[])
         return ans
+
+    # End**********************************
     #75. 颜色分类
     def sortColors(self, nums: list) -> None:
         """
@@ -203,6 +206,8 @@ class EverDay:
             elif nums[i] == 2:
                 nums[i],nums[right] = nums[right],nums[i]
                 right -= 1
+
+    # End**********************************
     #361. 轰炸敌人
     def maxKilledEnemies(self, grid: list) -> int:
         m = len(grid)
@@ -252,7 +257,7 @@ class EverDay:
                     res = temp
         return res
 
-
+    # End**********************************
 
 
     def triangleType(self, nums: list) -> str:
@@ -275,9 +280,57 @@ class EverDay:
         else:
             return "none"
 
+    # 3355.零数组变换I
+    def isZeroArray0(self, nums: list, queries: list) -> bool:
+        hashTable = {}
+        for i in queries:
+            for j in range(i[0],i[-1]+1):
+                if j not in hashTable.keys():
+                    hashTable[j] = 1
+                else:hashTable[j] += 1
+        flag = True
+        for i,value in enumerate(nums):
+            if i not in hashTable.keys():
+                if value !=0:
+                    flag = False
+                    break
+            elif hashTable[i] < value:
+                flag = False
+                break
+        return flag
 
+    def isZeroArray(self, nums: list, queries: list) -> bool:
+        dil = [0 for i in range(len(nums)+1)]
+        for i in queries:
+            dil[i[0]] += 1
+            dil[i[1]+1] -= 1
+        addSum = 0
+        flag = True
+        for i , value in enumerate(nums):
+            addSum += dil[i]
+            if addSum < value:
+                flag = False
+                break
+        return flag
 
+    # End**********************************
+    # 3356.零数组变换II
 
+    def minZeroArray(self, nums: list, queries: list) -> int:# 未解决，超时不能解决，需要用到二分查找，思路是第k满足那么第k+1也满足，这个条件就可以使用二分查找
+        dil = [0] * (len(nums)+1)
+        for idx,i in enumerate(queries):
+            dil[i[0]] += i[2]
+            dil[i[1]+1] -= i[2]
+            for j in range(i[0],i[1]+1):
+                if nums[j] > 0:
+                    if nums[j] > i[2]:
+                        nums[j] -= i[2]
+                    else:
+                        nums[j] = 0
+            if sum(nums) == 0:
+                return idx+1
+        return -1
+    # End**********************************
 # 1429 第一个唯一数字
 class FirstUnique:
     def __init__(self, nums: list):
