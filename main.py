@@ -1,13 +1,19 @@
 import math
 from collections import Counter
 
+from Demos.SystemParametersInfo import orig_height
 from fontTools.misc.cython import returns
+from jedi.debug import speed
 from numpy.lib.polynomial import roots
 from scipy.ndimage import prewitt
 
 from EverDay import EverDay, FirstUnique
 from bound import branch_and_bound_knapsack
 from bound import bound
+import matplotlib.pyplot as plt
+import numpy as np
+
+from draw import Draw
 
 
 class TreeNode:
@@ -61,19 +67,6 @@ class Solution:
         return dp[row-1][col-1]
 
 
-if __name__ == '__main__':
 
-    # capacity = 10
-    # weights = [4, 7, 5, 3]
-    # values = [40, 42, 25, 12]
-    # n = len(values)
-    #
-    # max_profit, selected_items = branch_and_bound_knapsack(capacity, weights, values, n)
-    #
-    # print("最大价值:", max_profit)
-    # print("选择的物品索引:", selected_items)
-    # print("对应的重量:", [weights[i] for i in selected_items])
-    # print("对应的价值:", [values[i] for i in selected_items])
-    s = EverDay()
-    res=s.permuteUnique([1,1,2])
-    print(len(res))
+if __name__ == '__main__':
+    s = Draw(720,1,1,1,2,0,4,10)

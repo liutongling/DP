@@ -1,5 +1,6 @@
 from collections import deque, Counter
 
+from Dp import TreeNode
 
 
 class EverDay:
@@ -95,7 +96,6 @@ class EverDay:
             opt[n] = 0
             dfs(nums,n+1,temp)
             return res
-
         return dfs(nums, 0, [])
     # End**********************************
     #90. 子集 II
@@ -149,26 +149,26 @@ class EverDay:
     #46. 全排列
     def permute(self, nums: list) -> list:
         n = len(nums)
-        opt = [0 for _ in range(n)]
-        ans = []
+        opt = [0 for _ in range(n)] # 标记是否被访问
+        ans = [] # 存储结果
         def dfs_permute(nums:list,n,temp:list):
-            if n == len(nums):
-                ans.append(temp[:])
-            for i in range(len(nums)):
-                if opt[i] ==0:
-                    temp.append(nums[i])
-                    opt[i] = 1
-                    dfs_permute(nums,n+1,temp)
-                    opt[i] = 0
-                    temp.pop(-1)
+            if n == len(nums):# 如果访问到叶子节点则存储结果
+                ans.append(temp[:]) # 这里要注意要复制list
+            for i in range(len(nums)): # 遍历数组
+                if opt[i] ==0: # 如果发现未被访问则进行递归
+                    temp.append(nums[i]) # 将元素添加进去
+                    opt[i] = 1 #标记已经被访问
+                    dfs_permute(nums,n+1,temp) # 递归
+                    opt[i] = 0 #回溯到上一个根节点的状态
+                    temp.pop(-1) #回溯
         dfs_permute(nums, 0, [])
         return ans
     # End**********************************
     #全排列 II
     def permuteUnique(self, nums: list) -> list:
         ans = [] # 存储所有的结果
-        opt = [0 for i in range(len(nums))]
-        nums.sort()
+        opt = [0 for i in range(len(nums))] # 标记是否被访问
+        nums.sort() # 必须要排序，这样方便判断上一个是否被访问
         def dfs(nums:list,n:int,temp:list):
             if n==len(nums):
                 ans.append(temp[:])
@@ -331,6 +331,122 @@ class EverDay:
                 return idx+1
         return -1
     # End**********************************
+    # 广度优先搜索
+
+    def bfs(self, root:TreeNode) -> int:
+        #定义一个队列
+        que = [] # 这里直接就用一个列表表示
+        que.append(root)
+        while len(que) != 0:#判断是否为空
+            # 弹出队首元素
+            temp = que.pop(0)
+            if temp.left != None: # 如果左节点不空，加入到队列中
+                que.append(temp.left)
+            if temp.right !=None: # 如果右节点不空，加入到队列中
+                que.append(temp.right)
+
+    # End**********************************
+
+    # 3372.连接两棵树后最大目标节点数目I
+    
+    def maxTargetNodes(self, edges1: list, edges2: list, k: int) -> list:
+        # 定义找到第一树点的所有节
+
+        return
+
+    # End**********************************
+
+    # 3372.连接两棵树后最大目标节点数目I
+    def closestMeetingNode1(self, edges: list, node1: int, node2: int) -> int:
+        if node1 == node2:
+            return node1
+        rootNode1 = {}
+        rootNode2 = {}
+        temp = node1
+        i = 0
+        rootNode1[temp] = 0
+        while edges[temp] != -1 and (edges[temp] not in rootNode1.keys()):
+            i += 1
+            rootNode1[edges[temp]] = i
+            temp = edges[temp]
+        temp = node2
+        i = 0
+        rootNode2[temp] =0
+        while edges[temp] != -1 and (edges[temp] not in rootNode2.keys()):
+            i += 1
+            rootNode2[edges[temp]] = i
+            temp = edges[temp]
+        res = -1
+        restemp = len(edges)
+        for i in rootNode1.keys():
+            if i in rootNode2.keys():
+                if restemp > max(rootNode2[i],rootNode1[i]):
+                    restemp = max(rootNode2[i],rootNode1[i])
+                    res = i
+        return res
+    def closestMeetingNode2(self, edges: list, node1: int, node2: int) -> int:
+        if node1 == node2:
+            return node1
+        rootNode1 = {}
+        rootNode2 = {}
+        temp = node1
+        i = 0
+        rootNode1[temp] = 0
+        while edges[temp] != -1 and (edges[temp] not in rootNode1.keys()):
+            i += 1
+            rootNode1[edges[temp]] = i
+            temp = edges[temp]
+        temp = node2
+        i = 0
+        rootNode2[temp] =0
+        while edges[temp] != -1 and (edges[temp] not in rootNode2.keys()):
+            i += 1
+            rootNode2[edges[temp]] = i
+            temp = edges[temp]
+        res = max(edges) + 1
+        restemp = len(edges)
+        for i in rootNode1.keys():
+            if i in rootNode2.keys():
+                if restemp >= max(rootNode2[i],rootNode1[i]):
+                    if restemp == max(rootNode2[i],rootNode1[i]):
+                        res = i if res > i else res
+                    restemp = max(rootNode2[i],rootNode1[i])
+                    res = i
+        return -1 if res == max(edges)+1 else res
+
+    def closestMeetingNode(self, edges: list, node1: int, node2: int) -> int:
+        if node1 == node2:
+            return node1
+        rootNode1 = {}
+        rootNode2 = {}
+        temp = node1
+        i = 0
+        rootNode1[temp] = 0
+        while edges[temp] != -1 and (edges[temp] not in rootNode1.keys()):
+            i += 1
+            rootNode1[edges[temp]] = i
+            temp = edges[temp]
+        temp = node2
+        i = 0
+        rootNode2[temp] = 0
+        while edges[temp] != -1 and (edges[temp] not in rootNode2.keys()):
+            i += 1
+            rootNode2[edges[temp]] = i
+            temp = edges[temp]
+        res = max(edges) + 1
+        restemp = len(edges)
+        for i in rootNode1.keys():
+            if i in rootNode2.keys():
+                distance = max(rootNode2[i], rootNode1[i])
+                if restemp >= distance:
+                    if restemp == distance:
+                        res = i if res > i else res
+                    else:
+                        res = i
+                        restemp = distance
+        return -1 if res == max(edges) + 1 else res
+    # End**********************************
+
 # 1429 第一个唯一数字
 class FirstUnique:
     def __init__(self, nums: list):

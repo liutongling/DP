@@ -1,5 +1,21 @@
 import heapq
 
+from Dp import TreeNode
+
+
+class BoundTest:
+    def bfs(self,root:TreeNode):
+        que = [root]
+        dil = 10
+        while len(que) != 0:
+            temp = que.pop(0)
+            if temp.left != None and temp.left.val>dil:
+                que.append(temp.left)
+            if temp.right != None and temp.right.val >dil:
+                que.append(temp.right)
+            print(temp.val)
+
+
 
 class Item:
     def __init__(self, weight, value):
