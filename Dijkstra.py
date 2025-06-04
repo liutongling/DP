@@ -3,7 +3,7 @@ from queue import PriorityQueue
 
 class Dijkstra:
     def __init__(self,G,node):
-        self.g = G
+        self.g = G  # 这个G是一个邻接矩阵表示
         # 找到所有的边，由于我们使用的是无向图，邻接矩阵转置相同
         self.pq = PriorityQueue()#优先队列
         self.node = node # 表示源点

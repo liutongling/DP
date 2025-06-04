@@ -39,7 +39,7 @@ class Node:
         # 为了最大堆，按bound降序排列
         return self.bound > other.bound
 
-
+# 参数分别表示node:当前的节点,capacity:剩余容量，items:表示存储各个物品的价值和质量，n:表示总共有几个物品
 def bound(node, capacity, items, n):
     # 如果重量超过容量，直接返回0（不可能有更优解）
     if node.weight >= capacity:
@@ -128,3 +128,14 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
 
 # 示例使用
 
+    # capacity = 10
+    # weights = [4, 7, 5, 3]
+    # values = [40, 42, 25, 12]
+    # n = len(values)
+    #
+    # max_profit, selected_items = branch_and_bound_knapsack(capacity, weights, values, n)
+    #
+    # print("最大价值:", max_profit)
+    # print("选择的物品索引:", selected_items)
+    # print("对应的重量:", [weights[i] for i in selected_items])
+    # print("对应的价值:", [values[i] for i in selected_items])
