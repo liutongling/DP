@@ -70,3 +70,4 @@ class Solution:
 
 if __name__ == '__main__':
     s = Draw(720,1,1,1,2,0,4,10)
+    # office 加入
