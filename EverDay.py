@@ -446,6 +446,30 @@ class EverDay:
                         restemp = distance
         return -1 if res == max(edges) + 1 else res
     # End**********************************
+    def robotWithString(self, s: str) -> str:
+        n = len(s)
+        tempchar = [s[n-1] for _ in range(n)]
+        for i in range(n-2,-1,-1):
+            if ord(s[i]) < ord(tempchar[i+1]):
+                tempchar[i] = s[i]
+            else:
+                tempchar[i] = tempchar[i+1]
+        stack = []
+
+        que = tempchar[:]
+        result = ""
+        for i in range(n):
+            if ord(s[i]) > ord(tempchar[i]):
+                stack.append(s[i])
+                que.pop(0)
+            elif ord(s[i]) == ord(tempchar[i]):
+                stack.append(s[i])
+                tempca = que[0]
+                while len(stack) > 0 and ord(stack[-1]) <= ord(tempca):
+                    result += stack.pop(-1)
+                    if len(que)>0 and que[0] ==s[i] :que.pop(0)
+        print(result)
+        return result
 
 # 1429 第一个唯一数字
 class FirstUnique:

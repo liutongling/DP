@@ -1,16 +1,9 @@
 import math
 from collections import Counter
-
-from Demos.SystemParametersInfo import orig_height
-from fontTools.misc.cython import returns
-from jedi.debug import speed
 from numpy.lib.polynomial import roots
-from scipy.ndimage import prewitt
-
 from EverDay import EverDay, FirstUnique
 from bound import branch_and_bound_knapsack
 from bound import bound
-import matplotlib.pyplot as plt
 import numpy as np
 
 from draw import Draw
@@ -69,5 +62,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    s = Draw(720,1,1,1,2,0,4,10)
-    # office 加入
+    # Draw(720,0,0,1,0,0,2,10)
+    s = EverDay()
+    s.robotWithString("zza")

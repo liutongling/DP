@@ -39,7 +39,7 @@ class Draw:
     # resulution 表示把圆可以切分多少个点，按照圆的角度平均切分获得
     # x1,y1,r1,x2,y2 ,r2表示各个 圆的圆心和半径
     # time表示多长时间进行缩圆完成
-    def __init__(self,resolution,x1,y1,r1,x2,y2,r2,time):
+    def __init__(self,x1,y1,r1,x2,y2,r2,time=10,resolution=720,):
         s = Pubg(x1,y1,r1,x2,y2,r2,time,resolution)
     # 您提供的点坐标数据
         points1 = s.result(9.8) # 完整数据见原始问题
