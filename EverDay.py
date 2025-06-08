@@ -471,6 +471,18 @@ class EverDay:
         print(result)
         return result
 
+    # 386.字典序排数
+    def lexicalOrder(self, n: int) -> list:
+        arrNums = [str(i) for i in range(1, n+1)]
+        arrNums.sort()
+        res = []
+        for i in range(n):
+            res.append(int(arrNums[i]))
+        # print("hello world")
+        # print(res)
+        return res
+    # End**********************************
+
 # 1429 第一个唯一数字
 class FirstUnique:
     def __init__(self, nums: list):
