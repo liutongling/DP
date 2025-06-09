@@ -482,6 +482,15 @@ class EverDay:
         # print(res)
         return res
     # End**********************************
+    # 50.pow函数
+    def myPow(self, x: float, n: int) -> float:
+        if n==1:
+            return x
+        if n == 0:
+            return 1
+        temp = n%2
+        return self.myPow(x,n//2) *self.myPow(x,n//2+temp)
+    # End**********************************
 
 # 1429 第一个唯一数字
 class FirstUnique:
