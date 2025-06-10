@@ -500,6 +500,24 @@ class EverDay:
         else:
             return half * half * x  # 奇数时补乘x
     # End**********************************
+    # 3442.奇偶频次最大值I
+    def maxDifference(self, s: str) -> int:
+        count = [0]*26
+        for i in s:
+            count[ord(i)-97]+=1
+        countj = 0
+        counto = len(s)
+        for j in range(26):
+            if count[j] == 0:
+                continue
+            if count[j] %2 ==0 and count[j]<counto :
+                counto = count[j]
+            if count[j] %2 ==1 and count[j]>countj:
+                countj = count[j]
+
+        return countj - counto
+
+
 
 # 1429 第一个唯一数字
 class FirstUnique:

@@ -64,4 +64,4 @@ class Solution:
 if __name__ == '__main__':
     # Draw(720,0,0,1,0,0,2,10)
     s = EverDay()
-    s.lexicalOrder(10)
+    s.maxDifference("aaaaabbc")
