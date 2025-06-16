@@ -517,7 +517,15 @@ class EverDay:
 
         return countj - counto
 
-
+    def maximumDifference(self, nums: list) -> int:
+        maxSub = -1
+        for i in range(len(nums)-1):
+            for j in range(i+1, len(nums)):
+                if nums[j] != nums[i]:
+                    tempSub = nums[j] - nums[i]
+                    if maxSub < tempSub:
+                        maxSub = tempSub
+        return maxSub
 
 # 1429 第一个唯一数字
 class FirstUnique:
