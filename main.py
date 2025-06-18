@@ -67,6 +67,6 @@ def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
     return grades[i]
 if __name__ == '__main__':
     # Draw(720,0,0,1,0,0,2,10)
+    s = binSearch([1,2,2,2,3,4],0,5,2)
 
-    s = [grade(score) for score in [33, 99, 77, 70, 89, 90, 100]]
     print(s)
