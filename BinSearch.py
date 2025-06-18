@@ -19,3 +19,5 @@ def binSearch(nums:list,l:int,r:int, target):
 # （3）有目标值且重复查找的元素靠左
 
 # （4）有目标值且重复查找的元素靠右
+
+# 库函数参考bisect https://docs.python.org/zh-cn/3/library/bisect.html
