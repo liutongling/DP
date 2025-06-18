@@ -1,4 +1,5 @@
 import math
+from bisect import bisect
 from collections import Counter
 from numpy.lib.polynomial import roots
 from EverDay import EverDay, FirstUnique
@@ -7,7 +8,7 @@ from bound import bound
 import numpy as np
 
 from draw import Draw
-
+from BinSearch import binSearch
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -60,8 +61,12 @@ class Solution:
         return dp[row-1][col-1]
 
 
-
+def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
+    i = bisect(breakpoints, score)
+    print(i)
+    return grades[i]
 if __name__ == '__main__':
     # Draw(720,0,0,1,0,0,2,10)
-    s = EverDay()
-    s.maxDifference("aaaaabbc")
+
+    s = [grade(score) for score in [33, 99, 77, 70, 89, 90, 100]]
+    print(s)

@@ -1,4 +1,8 @@
+import bisect
 from collections import deque, Counter
+
+from pandas.core.config_init import max_cols
+from sympy import symarray
 
 from Dp import TreeNode
 
@@ -528,8 +532,8 @@ class EverDay:
                         maxSub = tempSub
         return maxSub
 
-    # 209 第一个唯一数字
-    def minSubArrayLen(self, target: int, nums: list) -> int:
+    # 209 长度最小的子数组 暴力解法
+    def minSubArrayLen1(self, target: int, nums: list) -> int:
         n = len(nums)
         maxnum = n
         temp = 0
@@ -542,8 +546,50 @@ class EverDay:
                     temp = tempSum
                     break
         return maxnum if temp>=target else 0
-    # End**********************************
+    def divTwo(self,nums:list,l:int,r:int,target:int):
+        left = l
+        right = r
+        while left < right:
+            mid = (right + left) // 2 + 1
+            if nums[mid] > target:
+                right = mid - 1
+            else:
+                left = mid
+        return left
 
+    def minSubArrayLen(self, target: int, nums: list) -> int:
+        sumArray = [0]*(len(nums)+1)
+        for i in range(len(nums)):
+            sumArray[i+1] = sumArray[i] + nums[i]
+        maxcount = len(nums)
+        for i in range(len(nums)):
+            targetwo = sumArray[i+1]-target
+            idx = self.divTwo(sumArray,0,i+1,targetwo)
+            if i-idx + 1< maxcount and sumArray[i+1] - sumArray[idx] >= target:
+                maxcount = i-idx + 1
+        if maxcount==len(nums) and sum(nums) >= target:
+            return maxcount
+        else:
+            return maxcount if maxcount != len(nums) else 0
+        #标准答案
+        def minSubArrayLen(self, s: int, nums: list) -> int:
+            if not nums:
+                return 0
+
+            n = len(nums)
+            ans = n + 1
+            sums = [0]
+            for i in range(n):
+                sums.append(sums[-1] + nums[i])
+
+            for i in range(1, n + 1):
+                target = s + sums[i - 1]
+                bound = bisect.bisect_left(sums, target)
+                if bound != len(sums):
+                    ans = min(ans, bound - (i - 1))
+
+            return 0 if ans == n + 1 else ans
+    # End**********************************
 # 1429 第一个唯一数字
 class FirstUnique:
     def __init__(self, nums: list):
