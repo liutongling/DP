@@ -590,6 +590,25 @@ class EverDay:
 
             return 0 if ans == n + 1 else ans
     # End**********************************
+    # 2785.将字符串中的元音字母排序
+    def sortVowels(self, s: str) -> str:
+        TempList = []
+        raySound = ['A','E','I','O','U','a','e','i','o','u']
+        for i in s:
+            if i in raySound:
+                TempList.append(i)
+        sortedList = sorted(TempList)
+        n = len(s)
+        j = 0
+        TempS = list(s)
+        for i in range(n):
+            if s[i] in raySound:
+                TempS[i] = sortedList[j]
+                j+=1
+        return ''.join(TempS)
+
+
+    # End**********************************
 # 1429 第一个唯一数字
 class FirstUnique:
     def __init__(self, nums: list):
