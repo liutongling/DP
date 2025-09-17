@@ -9,7 +9,7 @@ import numpy as np
 
 from draw import Draw
 from BinSearch import binSearch
-from kmp import build_next,compute_next_array
+from kmp import build_next,compute_next_array,next_self
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -69,7 +69,8 @@ def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
 if __name__ == '__main__':
     # Draw(720,0,0,1,0,0,2,10)
     # ss = build_next("ABACABAB")
-    ss = build_next("ABAACABAAT")
-    sss = compute_next_array("ABACABAB")
+    ss = build_next("AAAA")
+    sss = next_self("AAAA")
     print(ss)
-    # print(sss)
+    print("*")
+    print(sss)

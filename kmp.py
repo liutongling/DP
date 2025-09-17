@@ -3,6 +3,27 @@
     此时的思路就是退而求其次，选择剩下较小的前后缀长度，然后比较较小前后缀长度的下一个字符是不是与当前要匹配patt[i]相同，如果相同则此时next[i+1]等于当前的较小的前后缀长度加1.
     否则继续上述的循环。
 '''
+def next_self(pattStr:str)->list:
+    nextArr = [0]
+    i  = 1
+    n = len(pattStr)
+    j = nextArr[i - 1]
+    while i < n:
+        if pattStr[j] == pattStr[i]:
+            nextArr.append(j+1)
+            i += 1
+            j += 1
+        else:
+            if j == 0:
+                # if pattStr[j] == pattStr[i]:
+                #     nextArr.append(j+1)
+                # else:
+                nextArr.append(0)
+                i += 1
+            else:
+                j = nextArr[j - 1]
+    return nextArr
+
 def build_next(patt):
     # 计算Next数组
     next = [0]
