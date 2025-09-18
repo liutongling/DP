@@ -73,6 +73,21 @@ def compute_next_array(pattern):
     return next_arr
 
 
+def kmp(text,pattern):
+    nextArr = next_self(pattern)
+    i = 0
+    j = 0
+    while i < len(text) and j < len(pattern):
+        if text[i] != pattern[j]:
+            if j==0: # 这里有一个细节：就是如果S和T的第一个字符不匹配，需要让S的指针自增1
+                i += 1
+            else:
+                j = nextArr[j - 1]
+        elif text[i] == pattern[j]:
+            i += 1
+            j += 1
+    return True if j == len(pattern) else False
+
 def kmp_search(text, pattern):
     """
     使用KMP算法在文本中搜索模式串
