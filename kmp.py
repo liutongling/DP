@@ -15,13 +15,10 @@ def next_self(pattStr:str)->list:
             j += 1
         else:
             if j == 0:
-                # if pattStr[j] == pattStr[i]:
-                #     nextArr.append(j+1)
-                # else:
                 nextArr.append(0)
                 i += 1
             else:
-                j = nextArr[j - 1]
+                j = nextArr[j - 1] # 这里为什么要j-1 就是表示最长前缀的尾部的索引，这样的话就可以找到往前递推前缀，每次都少考虑一位就是j-1
     return nextArr
 
 def build_next(patt):
