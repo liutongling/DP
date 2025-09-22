@@ -3,6 +3,21 @@
     此时的思路就是退而求其次，选择剩下较小的前后缀长度，然后比较较小前后缀长度的下一个字符是不是与当前要匹配patt[i]相同，如果相同则此时next[i+1]等于当前的较小的前后缀长度加1.
     否则继续上述的循环。
 '''
+# 模式匹配算法的暴力解法
+def bf(text:str,pattern:str):
+    m = len(text) # 表示主串的长度
+    n = len(pattern) # 表示模式串的长度
+    for i in range(m-n): # 表示第一次循环从头开始，且最有一个匹配位置只能是m-n
+        k = i
+        j = 0
+        while j < n and text[k] == pattern[j]:
+            j += 1
+            k += 1
+        if j == n:  #此时表示已经完全匹配，匹配到了最有一个字符串了
+            return i
+    return -1
+
+
 def next_self(pattStr:str)->list:
     nextArr = [0]
     i  = 1
@@ -10,9 +25,9 @@ def next_self(pattStr:str)->list:
     j = nextArr[i - 1]
     while i < n:
         if pattStr[j] == pattStr[i]:
-            nextArr.append(j+1)
             i += 1
             j += 1
+            nextArr.append(j)
         else:
             if j == 0:
                 nextArr.append(0)

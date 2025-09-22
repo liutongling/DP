@@ -71,5 +71,5 @@ if __name__ == '__main__':
     # ss = build_next("ABACABAB")
     ss = build_next("ABCABD")
     sss = next_self("AAAA")
-    print(kmp("ABCABCABD","ABCABD"))
-    print(kmp_search("ABCABCABD","ABCABD"))
+    s = bf("ebebcebcdacde","ebcd")
+    print(s)
