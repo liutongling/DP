@@ -10,7 +10,7 @@ import numpy as np
 from draw import Draw
 from BinSearch import binSearch
 from kmp import *
-
+from Sort import *
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -67,9 +67,5 @@ def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
     print(i)
     return grades[i]
 if __name__ == '__main__':
-    # Draw(720,0,0,1,0,0,2,10)
-    # ss = build_next("ABACABAB")
-    ss = build_next("ABCABD")
-    sss = next_self("AAAA")
-    s = bf("ebebcebcdacde","ebcd")
-    print(s)
+    arr = [5,5,5,5,5,5,10,1,3,7,2]
+    print(quickSort(arr))
