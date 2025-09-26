@@ -1,15 +1,6 @@
-import math
-from bisect import bisect
-from collections import Counter
-from numpy.lib.polynomial import roots
-from EverDay import EverDay, FirstUnique
-from bound import branch_and_bound_knapsack
-from bound import bound
-import numpy as np
 
-from draw import Draw
-from BinSearch import binSearch
-from kmp import *
+from bisect import bisect
+from recursion import *
 from Sort import *
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -67,5 +58,6 @@ def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
     print(i)
     return grades[i]
 if __name__ == '__main__':
-    arr = [5,5,5,5,5,5,10,1,3,7,2]
-    print(quickSort(arr))
+    # all = hanoi(4,"a","b","c")
+    # print(f"all moves: {all}")
+    example(10)
