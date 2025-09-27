@@ -60,4 +60,5 @@ def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
 if __name__ == '__main__':
     # all = hanoi(4,"a","b","c")
     # print(f"all moves: {all}")
-    example(10)
+    res = mergeSort([2,4,1,5,1,5,32,1,33,46])
+    print(res)
