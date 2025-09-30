@@ -4,9 +4,9 @@
 """
     思路如下如果当前
 """
-def binSearch(nums:list,l:int,r:int, target):
-    left = l
-    right = r
+def binSearch(nums:list, target):
+    left = 0
+    right = len(nums)-1
     while left<right:
         mid = (right+left)//2 + 1
         if nums[mid]>target:
@@ -17,7 +17,16 @@ def binSearch(nums:list,l:int,r:int, target):
 # （2）没有目标值查找的元素靠右,如果有目标值返回目标值索引
 
 # （3）有目标值且重复查找的元素靠左
-
+def binSearch_hadLeft(nums:list, target):
+    left = 0
+    right = len(nums)-1
+    while left<right:
+        mid = (right+left)//2
+        if nums[mid]<target:
+            left = mid + 1
+        else:
+            right = mid
+    return left
 # （4）有目标值且重复查找的元素靠右
 
 # 库函数参考bisect https://docs.python.org/zh-cn/3/library/bisect.html

@@ -609,6 +609,21 @@ class EverDay:
 
 
     # End**********************************
+    def findPeakElement(self, nums: list) -> int:
+        l = 0
+        r = len(nums)-1
+        while l < r:
+            mid = (l+r)//2
+            if nums[mid-1] < nums[mid] and nums[mid]> nums[mid+1]:
+                return nums[mid]
+            elif nums[mid] < nums[mid+1]:
+                l = mid
+            elif nums[mid] > nums[mid+1]:
+                r = mid
+        return nums[mid]
+
+
+    # End**********************************
 # 1429 第一个唯一数字
 class FirstUnique:
     def __init__(self, nums: list):
