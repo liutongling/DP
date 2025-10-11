@@ -70,6 +70,8 @@ def findPeakElement(nums: list) -> int:
         elif nums[mid] > nums[mid + 1]:
             r = mid
     return nums[mid]
+
+
 if __name__ == '__main__':
     ls = [1,5,7,10,8,6,4,2,1]
 
