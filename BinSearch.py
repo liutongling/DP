@@ -114,3 +114,13 @@ def pow2(number:int,exponent:int)->int:
         exponent = exponent // 2
         l = l * l
     return res
+
+# 使用二分法找到数组中的最大值和最小值
+def select_minAndMax(nums:list)->tuple:
+    if len(nums)==1:
+        return nums[0], nums[0]
+    else:
+        mid = len(nums)//2
+        min1, max1 = select_minAndMax(nums[:mid])
+        min2, max2 = select_minAndMax(nums[mid:])
+        return min1 if min1<min2 else min2, max1 if max1>max2 else max2

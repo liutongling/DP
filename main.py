@@ -61,11 +61,11 @@ from Sort import *
 
 
 if __name__ == '__main__':
-    #ls = [4,5,6,7,0,1,2]
-    ls = [1,3]
+    ls = [4,5,6,7,0,1,2]
+    # ls = [1,3]
     # index1 = bisect.bisect(ls, 7)
     # index2 = bisect.bisect_left(ls, 7)
     # index3 = bisect.bisect_right(ls, 7)
     # print("index1 = {}, index2 = {}, index3 = {}".format(index1, index2, index3))
-    res = pow2(5,2)
-    print(res)
+    min1,max1 = select_minAndMax(ls)
+    print(min1,max1)
