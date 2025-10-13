@@ -124,3 +124,33 @@ def select_minAndMax(nums:list)->tuple:
         min1, max1 = select_minAndMax(nums[:mid])
         min2, max2 = select_minAndMax(nums[mid:])
         return min1 if min1<min2 else min2, max1 if max1>max2 else max2
+
+# 最大子数组
+
+def max_array(nums:list)->int: # 使用动态规划的解法
+
+    max_numbers=nums[0]
+    next_numbers=nums[0]
+    for num in range(1,len(nums)):
+        if nums[num]+next_numbers>nums[num]:
+            next_numbers = nums[num]+next_numbers
+        else:
+            next_numbers = nums[num]
+        if next_numbers>max_numbers:
+            max_numbers = next_numbers
+    return max_numbers
+
+
+def max_array1(nums: list) -> int:  # 使用暴力求解算法
+    maxSum = 0
+    tempArr = [0, 0]
+    for i in range(len(nums)):
+        tempSum = 0
+        for j in range(i,len(nums)):
+            tempSum += nums[j]
+            if tempSum>maxSum:
+                maxSum = tempSum
+                tempArr[0] = i
+                tempArr[1] = j
+    return tempArr
+
