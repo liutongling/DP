@@ -1,6 +1,7 @@
 
 import bisect
 from BinSearch import *
+from greed import *
 from recursion import *
 from Sort import *
 # class TreeNode:
@@ -61,7 +62,7 @@ from Sort import *
 
 
 if __name__ == '__main__':
-    ls = [4,5,6,7,-100,0,1,2]
+    ls = [1,2,5]
     ls1 = [13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15]
     # ls = [1,3]
     # index1 = bisect.bisect(ls, 7)
@@ -69,7 +70,5 @@ if __name__ == '__main__':
     # index3 = bisect.bisect_right(ls, 7)
     # print("index1 = {}, index2 = {}, index3 = {}".format(index1, index2, index3))
     #min1,max1 = select_minAndMax(ls)
-    res1 = max_array(ls)
-    print(res1)
-    res = max_array1(ls)
+    res = coinChange(ls,20)
     print(res)
