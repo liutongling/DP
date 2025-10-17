@@ -1,11 +1,4 @@
 import sys
-class Solution:
-    def coinChange(self, coins: list, amount: int) -> int:
-        res = [[sys.maxsize for j in range(len(coins))]  for i in range(amount+1)]
-        for i in range(1,amount+1):
-            for j in range(len(coins)):
-                
-
 
 def dfs_coins(coins:list,amount:int)->int:
     if amount == 0:
