@@ -97,6 +97,8 @@ def pow1(number:int,exponent:int)->int:
     if exponent<0:
         exponent = -exponent
         number = 1/number
+    if exponent == 0:
+        return 1
     if exponent==1:
         return number
     half = pow1(number,exponent//2)
@@ -106,13 +108,13 @@ def pow2(number:int,exponent:int)->int:
     if exponent<0:
         exponent = -exponent
         number = 1/number
-    l = number
+    lowNum = number
     res = 1
     while exponent>0:
         if exponent%2==1:
-            res = l * res
+            res = lowNum * res
         exponent = exponent // 2
-        l = l * l
+        lowNum = lowNum * lowNum
     return res
 
 # 使用二分法找到数组中的最大值和最小值
