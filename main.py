@@ -62,13 +62,5 @@ from Sort import *
 
 
 if __name__ == '__main__':
-    ls = [1,2,5]
-    ls1 = [13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,15]
-    # ls = [1,3]
-    # index1 = bisect.bisect(ls, 7)
-    # index2 = bisect.bisect_left(ls, 7)
-    # index3 = bisect.bisect_right(ls, 7)
-    # print("index1 = {}, index2 = {}, index3 = {}".format(index1, index2, index3))
-    #min1,max1 = select_minAndMax(ls)
-    res = coinChange(ls,20)
-    print(res)
+    root = creat_huffman([5,3,1,2,6,0])
+    view_tree(root)

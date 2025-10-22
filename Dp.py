@@ -61,7 +61,8 @@ class TreeNode(object):
         self.left = left
         self.right = right
 # 使用动态规划进行解决问题
-
+    def __lt__(self, other):
+        return self.val < other.val
 
 class Solution(object):
     def __init__(self):
