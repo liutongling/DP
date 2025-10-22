@@ -6,20 +6,20 @@ from queue import PriorityQueue
 class Prim:
     def __init__(self,M,G:list):
         # 初始化图
-        self.g = G
+        self.g = G # G是一个邻接矩阵，M是有多少个节点
         #存储最小生成树的点集
-        self.point = set([i for i in range(M)])
-        self.setPath = []
-        self.setPoint = set()
-        self.res = set()
+        self.point = set([i for i in range(M)]) # 初始化多少个节点
+        self.setPath = [] #没有用到
+        self.setPoint = set() # 用来保存添加之后的节点
+        self.res = set() # 没有用到
 
     def prim_work(self):
         pq = PriorityQueue()
-        pq.put((0,0))
-        disAll = 0
+        pq.put((0,0)) # 初始化节点
+        disAll = 0 # 保存最小生成树的总边长
         while not ((self.setPoint&self.point)==self.point):
-            next = pq.get()
-            nextP = next[1]
+            next = pq.get() # 弹出最小边
+            nextP = next[1] # 下一个节点
             if nextP not in self.setPoint:
                 self.setPoint.add(nextP)
                 disAll+=next[0]
