@@ -16,7 +16,7 @@
 特点：交换次数较少，适合大规模数据。
 
 
-2. Lomuto法（Lomuto Partition Scheme）
+2. Lomuto法（Lomuto Partition Scheme洛穆托）
 
 思想：通过一个“分区指针”将数组分为两部分，小于基准值的放左边，大于基准值的放右边。
 步骤：
