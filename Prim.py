@@ -31,3 +31,17 @@ class Prim:
                     pq.put((dis,j))
 
         return disAll
+
+# if __name__ == '__main__':
+#     G = [[0, 20, math.inf, math.inf, math.inf, 15, math.inf],
+#          [20, 0, 13, math.inf, math.inf, math.inf, math.inf],
+#          [math.inf, 13, 0, 18, math.inf, math.inf, 23],
+#          [math.inf, math.inf, 18, 0, 7, math.inf, math.inf],
+#          [math.inf, math.inf, math.inf, 7, 0, 26, math.inf],
+#          [15, math.inf, math.inf, math.inf, 26, 0, 9],
+#          [math.inf, math.inf, 23, math.inf, math.inf, 9, 0],
+#          ]
+#     M = 7
+#     primTest = Prim(M,G)
+#     result = primTest.prim_work()
+#     print(result)
