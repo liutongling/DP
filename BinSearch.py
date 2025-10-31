@@ -156,3 +156,24 @@ def max_array1(nums: list) -> int:  # 使用暴力求解算法
                 tempArr[1] = j
     return tempArr
 
+def mySqrt(x: int) -> int:
+    LimitX =  x//2
+    l = 0
+    r = LimitX
+
+    while l<r:
+        mid = (l+r)//2
+
+        if mid*mid <= x < (mid + 1)*(mid + 1):
+            return mid
+        elif mid*mid > x:
+            r = mid - 1
+        else:
+            l = mid + 1
+
+    return l
+
+
+
+
+
