@@ -3,7 +3,7 @@ import bisect
 import math
 
 from BinSearch import *
-from Prim import Prim
+from Prim import Prim, Graph, prim_mst
 from greed import *
 from recursion import *
 from Sort import *
@@ -73,15 +73,30 @@ if __name__ == '__main__':
     #      [15, math.inf, math.inf, math.inf, 26, 0, 9],
     #      [math.inf, math.inf, 23, math.inf, math.inf, 9, 0],
     #      ]
-    G = [[0, 1, math.inf, math.inf, math.inf, 1, math.inf],
-         [1, 0, 1, math.inf, math.inf, math.inf, math.inf],
-         [math.inf, 1, 0, 20, math.inf, math.inf, 1],
-         [math.inf, math.inf, 20, 0, 20, math.inf, math.inf],
-         [math.inf, math.inf, math.inf, 20, 0, 20, math.inf],
-         [1, math.inf, math.inf, math.inf, 20, 0, 1],
-         [math.inf, math.inf, 1, math.inf, math.inf, 1, 0],
-         ]
-    M = 7
-    primTest = Prim(M,G)
-    result = primTest.prim_work()
-    print(result)
+    # G = [[0, 1, math.inf, math.inf, math.inf, 1, math.inf],
+    #      [1, 0, 1, math.inf, math.inf, math.inf, math.inf],
+    #      [math.inf, 1, 0, 20, math.inf, math.inf, 1],
+    #      [math.inf, math.inf, 20, 0, 20, math.inf, math.inf],
+    #      [math.inf, math.inf, math.inf, 20, 0, 20, math.inf],
+    #      [1, math.inf, math.inf, math.inf, 20, 0, 1],
+    #      [math.inf, math.inf, 1, math.inf, math.inf, 1, 0],
+    #      ]
+    # M = 7
+    # primTest = Prim(M,G)
+    # result = primTest.prim_work()
+    # print(result)
+
+    g = Graph(5)
+    g.add_edge(0, 1, 2)
+    g.add_edge(0, 3, 6)
+    g.add_edge(1, 2, 3)
+    g.add_edge(1, 3, 8)
+    g.add_edge(1, 4, 5)
+    g.add_edge(2, 4, 7)
+    g.add_edge(3, 4, 9)
+
+    total_weight, mst_edges = prim_mst(g)
+    print(f"MST 总权重: {total_weight}")
+    print("MST 边组成:")
+    for edge in mst_edges:
+        print(edge)
