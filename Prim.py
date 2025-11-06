@@ -107,7 +107,7 @@ def prim_mst(graph):
 
 import sys
 
-def prim_for(graph):
+def prim_for(graph:list):
     num_vertices = len(graph)
     selected = [False] * num_vertices  # 标记节点是否已加入 MST
     # 用于存储 MST 的边
