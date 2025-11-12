@@ -1,7 +1,7 @@
 
 import bisect
 import math
-
+from Dijkstra import Dijkstra1
 from BinSearch import *
 from Prim import Prim, Graph, prim_mst
 from greed import *
@@ -86,17 +86,13 @@ if __name__ == '__main__':
     # result = primTest.prim_work()
     # print(result)
 
-    g = Graph(5)
-    g.add_edge(0, 1, 2)
-    g.add_edge(0, 3, 6)
-    g.add_edge(1, 2, 3)
-    g.add_edge(1, 3, 8)
-    g.add_edge(1, 4, 5)
-    g.add_edge(2, 4, 7)
-    g.add_edge(3, 4, 9)
+    g = Dijkstra1(5)
+    g.add_edge(0, 1, 20)
+    g.add_edge(0, 3, 60)
+    g.add_edge(0, 4, 15)
+    g.add_edge(1, 2, 42)
+    g.add_edge(3, 2, 30)
+    g.add_edge(4, 3, 23)
+    #g.add_edge(3, 4, 9)
 
-    total_weight, mst_edges = prim_mst(g)
-    print(f"MST 总权重: {total_weight}")
-    print("MST 边组成:")
-    for edge in mst_edges:
-        print(edge)
+    g.dijkstra_work(0)
