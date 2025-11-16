@@ -454,3 +454,16 @@ class Solution(object):
 
 # leetcode submit region end(Prohibit modification and deletion)
 
+# 树塔问题：从数字塔顶端出发，在经过每一个节点处都可以选择向左走或向右走，一直走到最低端，请找出一条路径要求经过路径上的数值最大
+def tower_math(tower:list)->int:
+    res = tower[:]
+    for i in range(1,len(tower)):
+        for j in range(len(tower[i])):
+            # 找到两个方向的路劲，要判断是否只有一条路
+            if j == 0:
+                res[i][j] = tower[i][j]+res[i-1][j]
+            elif j == len(tower[i])-1:
+                res[i][j]=tower[i][j]+res[i-1][j-1]
+            else:
+                res[i][j] = tower[i][j]+max(res[i-1][j],res[i-1][j-1])
+    return res
