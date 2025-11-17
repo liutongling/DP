@@ -39,21 +39,31 @@ class Dijkstra1:
         self.adj[u].append((v, w)) # 表示u节点所连的点为v，且权重为w
 
     def dijkstra_work(self, source:int):
-        res = 0
+
         # 首先将源点加入进去
         pq = PriorityQueue()
         pq.put((0, source)) # 每次取距离源点最近的点
         while not pq.empty():
             nextPoint = pq.get()
-            nextWeight = nextPoint[0] #获得最近顶点
-            nextPoint = nextPoint[1] # 距离
-            if not self.selected[nextPoint]: # 避免重复的节点
-                print("This Point is %d,The distance is:%d "% (nextPoint, nextWeight))
-                self.selected[nextPoint] = True
-                for i in range(len(self.adj[nextPoint])):# 通过邻接表将相邻的点加入堆中
-                    nW = self.adj[nextPoint][i][1]
-                    nP = self.adj[nextPoint][i][0]
-                    distanceTemp = nW+nextWeight
+            nextW = nextPoint[0] #获得最近顶点
+            nextP = nextPoint[1] # 距离
+            if not self.selected[nextP]: # 避免重复的节点
+                print("This Point is %d,The distance is:%d "% (nextP, nextW))
+                self.selected[nextP] = True
+                for i in range(len(self.adj[nextP])):# 通过邻接表将相邻的点加入堆中
+                    nW = self.adj[nextP][i][1]
+                    nP = self.adj[nextP][i][0]
+                    distanceTemp = nW+nextW
                     if not self.selected[nP]: # 要判断是否该点已经在集合中，避免重复计算
                         pq.put((distanceTemp,nP))
-        return res
+
+    # g = Dijkstra1(5)
+    # g.add_edge(0, 1, 20)
+    # g.add_edge(0, 3, 60)
+    # g.add_edge(0, 4, 15)
+    # g.add_edge(1, 2, 42)
+    # g.add_edge(3, 2, 30)
+    # g.add_edge(4, 3, 23)
+    # #g.add_edge(3, 4, 9)
+    #
+    # g.dijkstra_work(0)
