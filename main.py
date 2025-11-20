@@ -92,6 +92,27 @@ class Solution:
 
         return max(maxCount)
 
+    def maximalSquare(self, matrix: list) -> int:
+        row = len(matrix)
+        col = len(matrix[0])
+        Temp = [[0 for _ in range(col)] for _ in range(row)]
+        countMax = 0
+        for i in range(row):
+            if matrix[i][0] != '0':
+                Temp[i][0] = 1
+                countMax = 1
+        for j in range(col):
+            if matrix[0][j] != '0':
+                Temp[0][j] = 1
+                countMax = 1
+
+        for i in range(1, row):
+            for j in range(1, col):
+                if matrix[i][j] != '0':
+                    t = min(Temp[i - 1][j - 1], Temp[i - 1][j], Temp[i][j - 1])
+                    Temp[i][j] = t + 1
+                    countMax = Temp[i][j] if countMax < Temp[i][j] else countMax
+        return countMax
 
 
 if __name__ == '__main__':
@@ -116,16 +137,18 @@ if __name__ == '__main__':
     # result = primTest.prim_work()
     # print(result)
 
-    g = Dijkstra1(5)
-    g.add_edge(0, 1, 20)
-    g.add_edge(0, 3, 60)
-    g.add_edge(0, 4, 15)
-    g.add_edge(1, 2, 42)
-    g.add_edge(3, 2, 30)
-    g.add_edge(4, 3, 23)
-
-    g.dijkstra_work(0)
+    # g = Dijkstra1(5)
+    # g.add_edge(0, 1, 20)
+    # g.add_edge(0, 3, 60)
+    # g.add_edge(0, 4, 15)
+    # g.add_edge(1, 2, 42)
+    # g.add_edge(3, 2, 30)
+    # g.add_edge(4, 3, 23)
+    #
+    # g.dijkstra_work(0)
 
     # s=Solution()
     # r =  s.lengthOfLIS([0,1,0,3,2,3])# tower_math([[2],[6,9],[8,2,0],[4,6,7,3],[6,5,2,1,5]])
     # print(r)
+    s = Solution()
+    s.maximalSquare([["0","1"],["1","0"]])
