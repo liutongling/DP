@@ -1,4 +1,6 @@
-from Dp import tower_math
+from Dp import tower_math, bag0_1, coinChange111
+
+
 import bisect
 import math
 from Dijkstra import Dijkstra1
@@ -150,5 +152,8 @@ if __name__ == '__main__':
     # s=Solution()
     # r =  s.lengthOfLIS([0,1,0,3,2,3])# tower_math([[2],[6,9],[8,2,0],[4,6,7,3],[6,5,2,1,5]])
     # print(r)
-    s = Solution()
-    s.maximalSquare([["0","1"],["1","0"]])
+    # s = Solution()
+    # s.maximalSquare([["0","1"],["1","0"]])
+    #res = bag0_1([2,3,4,7],[1,3,5,9],V=10)
+    #print(res)
+    coinChange111([1,2,5],11)
