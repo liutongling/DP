@@ -478,17 +478,45 @@ def bag0_1(wight:list,value:list,V:int)->int:
                 dp[i][j] = max(dp[i-1][j],dp[i-1][j-wight[i-1]]+value[i-1])
     return dp[-1][-1]
 
+
+def Knapsack(wight:list,value:list,V:int)->int:
+    dp = [[0 for _ in range(V+1)] for _ in range(len(wight)+1)]
+    for i in range(1,len(wight)+1):
+        for j in range(1,V+1):
+            if j<wight[i-1]:
+                dp[i][j] = dp[i-1][j]
+            else:
+                dp[i][j] = max(dp[i-1][j],dp[i][j-wight[i-1]]+value[i-1])
+    print(dp)
+    return dp[-1][-1]
+
+def Knapsack_other(wight:list,value:list,V:int)->int:
+    dp = [0 for _ in range(V+1)]
+    for i in range(1,len(wight)+1):
+        print(dp)
+        for j in range(1,V+1):
+            if j<wight[i-1]:
+                dp[j] = dp[j]
+            else:
+                dp[j] = max(dp[j],dp[j-wight[i-1]]+value[i-1])
+    print(dp)
+    return dp[-1]
+
 def coinChange111(coins: list, amount: int) -> int:
     n = len(coins)
     dparr = [[amount+1 for _ in range(amount+1)] for _ in range(n+1)]
 
     for i in range(n+1):
         dparr[i][0] = 0
-    print(dparr)
+    # print(dparr)
     for i in range(1,n+1):
         for j in range(1,amount+1):
             if j<coins[i-1]:
                 dparr[i][j] = dparr[i-1][j]
             else:
                 dparr[i][j] = min(dparr[i-1][j],dparr[i][j-coins[i-1]]+1)
+    print(dparr)
     return -1 if dparr[-1][-1] == amount+1 else dparr[-1][-1]
+
+
+

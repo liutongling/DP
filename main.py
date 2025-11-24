@@ -1,5 +1,4 @@
-from Dp import tower_math, bag0_1, coinChange111
-
+from Dp import tower_math, bag0_1, coinChange111, Knapsack_other,Knapsack
 
 import bisect
 import math
@@ -116,7 +115,12 @@ class Solution:
                     countMax = Temp[i][j] if countMax < Temp[i][j] else countMax
         return countMax
 
-
+def maxSubArray(nums: list) -> int:
+    current_max = [0] * len(nums)
+    current_max[0] = nums[0]
+    for i in range(1,len(nums)):
+        current_max[i] = max(nums[i],current_max[i-1]+nums[i])
+    return max(current_max)
 if __name__ == '__main__':
     # G = [[0, 20, math.inf, math.inf, math.inf, 15, math.inf],
     #      [20, 0, 13, math.inf, math.inf, math.inf, math.inf],
@@ -156,4 +160,4 @@ if __name__ == '__main__':
     # s.maximalSquare([["0","1"],["1","0"]])
     #res = bag0_1([2,3,4,7],[1,3,5,9],V=10)
     #print(res)
-    coinChange111([1,2,5],11)
+    Knapsack_other([2,3,4,7],[1,3,5,9],V=10)
