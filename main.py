@@ -165,4 +165,4 @@ if __name__ == '__main__':
     # Test = EveryDayLeetCode()
     # result = Test.numberOfPaths([[5,2,4],[3,0,5],[0,7,2]],3)
     # print(result)
-    Multiple_Knapsack_Advanced([2,6,3],[1,10,6],[6,3,3],10)
+    Multiple_Knapsack_Advanced([2,6,3],[1,10,6],[50,3,3],10)

@@ -529,7 +529,7 @@ def Multiple_Knapsack(wight:list,value:list,number:list,V:int)->int:
                 if j>=wight[i]:
                     dp[j] = max(dp[j],dp[j-wight[i]]+value[i])
 
-    print(dp)
+    # print(dp)
     return dp[-1]
 
 
@@ -541,14 +541,14 @@ def Multiple_Knapsack_Advanced(wight:list,value:list,number:list,V:int)->int:
         # 对每个物品进行二进制转化
         s = number[i]
         k = 1
-        while k<s:
+        while k<s:# 若该行可以进行进行二进制转换
             # 将质量和价值更新
             w.append(k*wight[i])
             v.append(k*value[i])
             s-=k
             k*=2
 
-        if s>=0:
+        if s>=0:# 剩下的物品数量则单列一行
             w.append(s*wight[i])
             v.append(s*value[i])
     for i in range(len(w)):
