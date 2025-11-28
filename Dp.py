@@ -518,5 +518,49 @@ def coinChange111(coins: list, amount: int) -> int:
     print(dparr)
     return -1 if dparr[-1][-1] == amount+1 else dparr[-1][-1]
 
+# 将多重背包问题转成0-1背包问题
+def Multiple_Knapsack(wight:list,value:list,number:list,V:int)->int:
+    # allNum = sum(number)
+    dp = [0]*(V+1)
+    for i in range(len(number)):
+        for k in range(number[i]):
+            print(dp)
+            for j in range(V,1,-1):
+                if j>=wight[i]:
+                    dp[j] = max(dp[j],dp[j-wight[i]]+value[i])
 
+    # print(dp)
+    return dp[-1]
+
+
+def Multiple_Knapsack_Advanced(wight:list,value:list,number:list,V:int)->int:
+    dp = [0]*(V+1) #
+    w = []
+    v = []
+    for i in range(len(number)):
+        # 对每个物品进行二进制转化
+        s = number[i]
+        k = 1
+        while k<s:# 若该行可以进行进行二进制转换
+            # 将质量和价值更新
+            w.append(k*wight[i])
+            v.append(k*value[i])
+            s-=k
+            k*=2
+
+        if s>=0:# 剩下的物品数量则单列一行
+            w.append(s*wight[i])
+            v.append(s*value[i])
+    for i in range(len(w)):
+        print(dp)
+
+        for j in range(V,1,-1):
+            if j>=w[i]:
+                dp[j] = max(dp[j],dp[j-w[i]]+v[i])
+    print(dp)
+
+    #print(w)
+    #print(v)
+    print(dp[-1])
+    return dp[-1]
 

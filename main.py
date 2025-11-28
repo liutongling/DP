@@ -1,10 +1,11 @@
-from Dp import tower_math, bag0_1, coinChange111, Knapsack_other,Knapsack
+from Dp import *
 
 import bisect
 import math
 from Dijkstra import Dijkstra1
 from BinSearch import *
 from Prim import Prim, Graph, prim_mst
+from Problem import EveryDayLeetCode
 from greed import *
 from recursion import *
 from Sort import *
@@ -180,5 +181,13 @@ if __name__ == '__main__':
     # s.maximalSquare([["0","1"],["1","0"]])
     #res = bag0_1([2,3,4,7],[1,3,5,9],V=10)
     #print(res)
+<<<<<<< HEAD
     solution = Solution()
     solution.maxSubarraySum([-1,-2,-3,-4,-5], k = 4)
+=======
+    #Knapsack_other([2,3,4,7],[1,3,5,9],V=10)
+    # Test = EveryDayLeetCode()
+    # result = Test.numberOfPaths([[5,2,4],[3,0,5],[0,7,2]],3)
+    # print(result)
+    Multiple_Knapsack_Advanced([2,6,3],[1,10,6],[50,3,3],10)
+>>>>>>> ce2bc1c48a4109b0c851db6175b29f0522bb8440
