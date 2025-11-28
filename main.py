@@ -115,6 +115,26 @@ class Solution:
                     countMax = Temp[i][j] if countMax < Temp[i][j] else countMax
         return countMax
 
+    def maxSubarraySum(self, nums: list, k: int) -> int:
+        length = len(nums)
+        Temp = [0]*(length+1)
+        for i in range(length):
+            Temp[i+1] = nums[i]+Temp[i]
+        print(Temp)
+        preMin = [10**9] * k
+        maxSum = 0 - length * 10 ** 9
+        for i in range(length+1):
+            mod = i%k
+            if (i//k)!=0 and maxSum < (Temp[i]-preMin[mod]):
+                maxSum = Temp[i]-preMin[mod]
+            if preMin[mod] > Temp[i]:
+                preMin[mod] = Temp[i]
+        print(maxSum)
+        return maxSum
+
+
+
+
 def maxSubArray(nums: list) -> int:
     current_max = [0] * len(nums)
     current_max[0] = nums[0]
@@ -160,4 +180,5 @@ if __name__ == '__main__':
     # s.maximalSquare([["0","1"],["1","0"]])
     #res = bag0_1([2,3,4,7],[1,3,5,9],V=10)
     #print(res)
-    Knapsack_other([2,3,4,7],[1,3,5,9],V=10)
+    solution = Solution()
+    solution.maxSubarraySum([-1,-2,-3,-4,-5], k = 4)
