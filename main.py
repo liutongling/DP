@@ -182,12 +182,6 @@ if __name__ == '__main__':
     #res = bag0_1([2,3,4,7],[1,3,5,9],V=10)
     #print(res)
 
-    solution = Solution()
-    solution.maxSubarraySum([-1,-2,-3,-4,-5], k = 4)
-
-    #Knapsack_other([2,3,4,7],[1,3,5,9],V=10)
-    # Test = EveryDayLeetCode()
-    # result = Test.numberOfPaths([[5,2,4],[3,0,5],[0,7,2]],3)
-    # print(result)
-    Multiple_Knapsack_Advanced([2,6,3],[1,10,6],[50,3,3],10)
+    solution = EveryDayLeetCode()
+    solution.combine(4,4)
 

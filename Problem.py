@@ -12,3 +12,21 @@ class EveryDayLeetCode:
                 return 1 if pre==0 else 0
             return (dfs(i-1,j,pre) + dfs(i,j-1,pre))%(10**9+7)
         return dfs(len(grid)-1,len(grid[0])-1,0)
+    def combine(self, n: int, k: int) -> list:
+        result = []
+        def dfs(n:int,t,lev:int,tempList:list):
+            if lev==k:
+                result.append(tempList[:])
+                return
+            for i in range(t,n+1):
+                if  (n-i)>=(k-lev -1):
+                    tempList.append(i)
+                    #remark[i] = 1
+                    dfs(n,i+1,lev+1,tempList)
+                    tempList.pop()
+                    #remark[i] = 0
+
+        dfs(n,1,0,[])
+        print(result)
+        return result
+
