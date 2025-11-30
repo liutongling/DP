@@ -41,6 +41,7 @@
 #
 #
 #  Related Topics 树 深度优先搜索 动态规划 二叉树 👍 2078 👎 0
+import math
 import queue
 from functools import cache
 from math import inf
@@ -563,4 +564,32 @@ def Multiple_Knapsack_Advanced(wight:list,value:list,number:list,V:int)->int:
     #print(v)
     print(dp[-1])
     return dp[-1]
+
+#考试题目一共有n道题，每道题的正确率是p1,p2,p3...pn，要想达到准确率是50%通过考试，求出通过考试的概率。
+# 例如：p=[0.6,0.6,0.6,0.6]
+def TestPass(P:list):
+    dp = [0]*(len(P)+1)
+    dp[0] = 1
+    k = math.ceil(len(P)/2)
+    for i in range(1,len(P)+1):
+        for j in range(len(P),0,-1):
+            if j<=i:
+                dp[j] = dp[j]*(1-P[i-1])+ dp[j-1]*P[i-1]
+        dp[0] = dp[0] * (1 - P[i-1])
+        print(dp)
+    return sum(dp[k:])
+import math
+
+def pass_probability(n, p_list):
+    if n == 0:
+        return 0.0
+    k = math.ceil(0.6 * n)
+    dp = [0.0] * (n + 1)
+    dp[0] = 1.0
+    for p in p_list:
+        for j in range(n, 0, -1):
+            dp[j] = dp[j] * (1 - p) + dp[j - 1] * p
+        dp[0] = dp[0] * (1 - p)
+        print(dp)
+    return sum(dp[k:])
 

@@ -182,6 +182,10 @@ if __name__ == '__main__':
     #res = bag0_1([2,3,4,7],[1,3,5,9],V=10)
     #print(res)
 
-    solution = EveryDayLeetCode()
-    solution.combine(4,4)
+    # solution = EveryDayLeetCode()
+    # solution.combine(4,4)
+    # print(math.ceil(0.1))
 
+    TestPass([0.6, 0.6, 0.6])
+    print("*****************")
+    pass_probability(3,[0.6, 0.6, 0.6])

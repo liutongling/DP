@@ -30,3 +30,16 @@ class EveryDayLeetCode:
         print(result)
         return result
 
+    def findTargetSumWays(self, nums: list, target: int) -> int:
+        # 使用回溯的方法求解
+        def dfs(nums:list,lev,sum1,sum2,target:int):
+            if lev==len(nums):
+                if sum1+sum2==target:
+                    return 1
+                else:
+                    return 0
+            else:
+                l = dfs(nums,lev+1,sum1+nums[lev],sum2,target)
+                r = dfs(nums,lev+1,sum1,sum2-nums[lev],target)
+                return l+r
+        return dfs(nums,0,0,0,target)
