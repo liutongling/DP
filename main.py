@@ -185,7 +185,6 @@ if __name__ == '__main__':
     # solution = EveryDayLeetCode()
     # solution.combine(4,4)
     # print(math.ceil(0.1))
-
     TestPass([0.6, 0.6, 0.6])
     print("*****************")
     pass_probability(3,[0.6, 0.6, 0.6])

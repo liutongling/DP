@@ -1,3 +1,4 @@
+from queue import PriorityQueue
 class EveryDayLeetCode:
     def numberOfPaths(self, grid: list, k: int) -> int:
         for i in range(len(grid)):
@@ -43,3 +44,8 @@ class EveryDayLeetCode:
                 r = dfs(nums,lev+1,sum1,sum2-nums[lev],target)
                 return l+r
         return dfs(nums,0,0,0,target)
+    #2141 同时运行n台电脑
+    def maxRunTime(self, n: int, batteries: list) -> int:
+        que = PriorityQueue(batteries)
+        return 0
+
