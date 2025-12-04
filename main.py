@@ -188,3 +188,5 @@ if __name__ == '__main__':
     TestPass([0.6, 0.6, 0.6])
     print("*****************")
     pass_probability(3,[0.6, 0.6, 0.6])
+    sts = [0]
+    
