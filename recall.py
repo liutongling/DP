@@ -56,3 +56,58 @@ class Recall:
         dfs(n, 1, 0, [])
         # print(result)
         return result
+    # 全排列I 该问题还可以解的方法1.头中尾插入法、2.抽丝法、3.交换法、4、前缀法 (Prefix Method)
+    # 1. 头中尾插入法 (Insertion Method)
+    # 思路：
+    # 对于n个元素的全排列，可以看作在n-1个元素全排列的基础上，将第n个元素插入到每个排列的各个位置
+    #
+    # 例如：对于[1,2,3]，先得到[1,2]的排列：[1,2], [2,1]
+    #
+    # 然后将3插入每个排列的每个位置：头、中、尾
+    def permute(self, nums: list) -> list:
+        result = []
+
+        def dfs(nums: list,Visit:list, lev: int, TempList: list):
+
+            if lev == len(nums):
+                result.append(TempList[:])
+                return
+            for i in range(len(nums)):
+                if Visit[i]==0:
+                    Visit[i] = 1
+                    TempList.append(nums[i])
+                    dfs(nums,Visit,lev,TempList)
+                    Visit[i] = 0
+                    TempList.pop()
+        return result
+    # switch method
+    def permute_switch(self, nums: list) -> list:
+        result = []
+
+        def dfs(start:int):
+            if start == len(nums):
+                result.append(nums[:])
+                print(nums)
+                return
+            for i in range(start,len(nums)):
+                nums[start] , nums[i] = nums[i], nums[start]
+                dfs(start+1)
+                nums[i] , nums[start] = nums[start], nums[i]
+
+        dfs(0)
+        return result
+
+    def subsets(self, nums: list) -> list:
+        result = []
+        def dfs(start:int ,Temp:list):
+            if start == len(nums):
+                result.append(Temp[:])
+                return
+            Temp.append(nums[start])
+            dfs(start+1,Temp)
+            Temp.pop()
+            dfs(start + 1, Temp)
+        dfs(0,[])
+        print(result)
+
+        return result

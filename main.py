@@ -1,5 +1,5 @@
 from Dp import *
-
+from recall import *
 import bisect
 import math
 from Dijkstra import Dijkstra1
@@ -185,8 +185,9 @@ if __name__ == '__main__':
     # solution = EveryDayLeetCode()
     # solution.combine(4,4)
     # print(math.ceil(0.1))
-    TestPass([0.6, 0.6, 0.6])
-    print("*****************")
-    pass_probability(3,[0.6, 0.6, 0.6])
-    sts = [0]
-    
+    # TestPass([0.6, 0.6, 0.6])
+    # print("*****************")
+    # pass_probability(3,[0.6, 0.6, 0.6])
+    # sts = [0]
+    s = Recall()
+    s.subsets([1,2,3])
