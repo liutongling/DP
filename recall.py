@@ -111,3 +111,35 @@ class Recall:
         print(result)
 
         return result
+    def subsets_bit(self, nums: list) -> list:
+        result = []
+        for i in range(pow(2, len(nums))):
+            temp = []
+            for j in range(len(nums)):
+                if (i&(1<<j))!=0:
+                    temp.append(nums[j])
+            result.append(temp[:])
+        print(result)
+        return result
+
+    #n皇后 问题
+    def solveNQueens(self, n: int) -> list:
+        col = [0]*n
+        main_Line = [0]*(2*n-1)
+        sub_Line = [0]*(2*n-1)
+        def dfs(n:int,lev:int,temp:list)->int:
+            if n==lev:
+
+                return 1
+            count = 0
+            for i in range(n):
+                if col[i]==0 and main_Line[i+lev]==0 and sub_Line[i-lev+n-1]==0:
+                    col[i] = 1
+                    main_Line[i+lev] = 1
+                    sub_Line[i-lev+n-1] = 1
+                    count+=dfs(n,lev+1)
+                    col[i] = 0
+                    main_Line[i+lev] = 0
+                    sub_Line[i-lev+n-1] = 0
+            return count
+        return dfs(n,0,)

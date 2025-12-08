@@ -190,4 +190,4 @@ if __name__ == '__main__':
     # pass_probability(3,[0.6, 0.6, 0.6])
     # sts = [0]
     s = Recall()
-    s.subsets([1,2,3])
+    s.subsets_bit([1,2,3])

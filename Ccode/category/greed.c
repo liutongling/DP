@@ -1,3 +1,4 @@
+#include <stdio.h>
 //
 // Created by liutongling on 2025/10/25. 最大子数组和
 //
@@ -48,4 +49,7 @@ int Max_SonArr(int a[],int s,int f)
         int temp = (max1>max2?max1:max2);
         return temp>max3?temp:max3;
     }
+}
+void p(void) {
+    printf("Hello World!");
 }
