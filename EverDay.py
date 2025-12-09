@@ -106,6 +106,7 @@ class EverDay:
     def subsetsWithDup(self, nums: list) -> list:
         res = []
         opt = [0 for i in range(len(nums))]
+        nums.sort()
         def dfs(nums:list,n,temp:list):
             if n == len(nums):
                 res.append(temp[:])
@@ -172,7 +173,6 @@ class EverDay:
     def permuteUnique(self, nums: list) -> list:
         ans = [] # 存储所有的结果
         opt = [0 for i in range(len(nums))] # 标记是否被访问
-        nums.sort() # 必须要排序，这样方便判断上一个是否被访问
         def dfs(nums:list,n:int,temp:list):
             if n==len(nums):
                 ans.append(temp[:])

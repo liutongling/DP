@@ -41,18 +41,14 @@ class Recall:
     # ]
     def combine(self, n: int, k: int) -> list:
         result = []
-
         def dfs(n: int, t, lev: int, tempList: list):
             if lev == k:
                 result.append(tempList[:])
                 return
             for i in range(t, n + 1):
-                if (n - i) >= (k - lev - 1):
-                    tempList.append(i)
-                    dfs(n, i + 1, lev + 1, tempList)
-                    tempList.pop()
-
-
+                tempList.append(i)
+                dfs(n, i + 1, lev + 1, tempList)
+                tempList.pop()
         dfs(n, 1, 0, [])
         # print(result)
         return result
@@ -143,3 +139,4 @@ class Recall:
                     sub_Line[i-lev+n-1] = 0
             return count
         return dfs(n,0,)
+
