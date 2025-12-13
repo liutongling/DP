@@ -450,7 +450,73 @@ class Solution(object):
         loc[row][col] = 1
         dfs(moveTime,loc,row,col,flag=0)
         return moveTime[0][0]
+    def lengthOfLIS_Force(self, nums: list) -> int:
+        # 暴力解决
+        maxCount = 0
+        for i in range(len(nums)):
+            count = 1
+            temp = nums[i]
+            k = i
+            while k < len(nums):
+                if temp < nums[k]:
+                    count += 1
+                    temp = nums[k]
+                k += 1
+            if count > maxCount:
+                maxCount = count
+        return maxCount
+    def lengthOfLIS(self, nums: list) -> int:
+        # 暴力解决
+        maxCount =[0]*len(nums)
+        maxCount[-1] = 1
+        for i in range(len(nums)-1,-1,-1):
+            maxcount = 0
+            for j in range(len(nums)-1,i,-1):
+                if nums[j]>nums[i] and maxcount < maxCount[j]:
+                    maxcount = maxCount[j]
+            maxCount[i] = maxcount + 1
 
+
+        return max(maxCount)
+
+    def maximalSquare(self, matrix: list) -> int:
+        row = len(matrix)
+        col = len(matrix[0])
+        Temp = [[0 for _ in range(col)] for _ in range(row)]
+        countMax = 0
+        for i in range(row):
+            if matrix[i][0] != '0':
+                Temp[i][0] = 1
+                countMax = 1
+        for j in range(col):
+            if matrix[0][j] != '0':
+                Temp[0][j] = 1
+                countMax = 1
+
+        for i in range(1, row):
+            for j in range(1, col):
+                if matrix[i][j] != '0':
+                    t = min(Temp[i - 1][j - 1], Temp[i - 1][j], Temp[i][j - 1])
+                    Temp[i][j] = t + 1
+                    countMax = Temp[i][j] if countMax < Temp[i][j] else countMax
+        return countMax
+
+    def maxSubarraySum(self, nums: list, k: int) -> int:
+        length = len(nums)
+        Temp = [0]*(length+1)
+        for i in range(length):
+            Temp[i+1] = nums[i]+Temp[i]
+        print(Temp)
+        preMin = [10**9] * k
+        maxSum = 0 - length * 10 ** 9
+        for i in range(length+1):
+            mod = i%k
+            if (i//k)!=0 and maxSum < (Temp[i]-preMin[mod]):
+                maxSum = Temp[i]-preMin[mod]
+            if preMin[mod] > Temp[i]:
+                preMin[mod] = Temp[i]
+        print(maxSum)
+        return maxSum
 
 
 # leetcode submit region end(Prohibit modification and deletion)

@@ -96,8 +96,8 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
         next_level = current_node.level + 1
         left_weight = current_node.weight + items[next_level].weight
         left_profit = current_node.profit + items[next_level].value
-        left_items = current_node.items.copy()
-        left_items.append(next_level)
+        left_items = current_node.items.copy() #该层选择哪些物品拷贝过来
+        left_items.append(next_level) # 将该物品加入候选单中
 
         # 如果重量不超过容量且价值更大，更新最大值
         if left_weight <= capacity and left_profit > max_profit:
