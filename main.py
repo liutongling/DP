@@ -1,4 +1,4 @@
-
+from recall import *
 import heapq
 
 class Item:
@@ -124,7 +124,6 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
 
 
 
-
 if __name__ == '__main__':
     # G = [[0, 20, math.inf, math.inf, math.inf, 15, math.inf],
     #      [20, 0, 13, math.inf, math.inf, math.inf, math.inf],
@@ -175,7 +174,7 @@ if __name__ == '__main__':
     # s = Recall()
     # s.subsets_bit([1,2,3])
 
-    capacity = 10
+    capacity = 5
     weights = [2,4,5,3]
     values = [12,16,15,6]
     n = len(values)
@@ -186,3 +185,21 @@ if __name__ == '__main__':
     print("选择的物品索引:", selected_items)
     print("对应的重量:", [weights[i] for i in selected_items])
     print("对应的价值:", [values[i] for i in selected_items])
+
+    print("***************")
+    s = Recall()
+    l = s.recallKnap(weights, values, capacity)
+    print(l)
+    print("***************")
+    s = Recall()
+    pic = [
+    [1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,0,1],
+    [1,0,1,0,0,0,0,1],
+    [1,0,0,0,1,0,0,1],
+    [1,0,0,0,0,0,0,1],
+    [1,0,1,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1]
+]
+    res =find_Path(pic,[5,1],[5,6])
+    print(res)

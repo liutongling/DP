@@ -125,7 +125,6 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
     # 返回最大价值和选择的物品索引
     return max_profit, best_items
 
-
 # 示例使用
 
     # capacity = 10

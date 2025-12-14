@@ -140,3 +140,143 @@ class Recall:
             return count
         return dfs(n,0,)
 
+    #用回溯求解0-1背包问题
+    def recallKnap(self,w:list,v:list,C:int)->int:
+        n = len(w)
+        def dfs(lev:int,wi:int,val:int)->int:
+            if lev==n:
+                return val
+            # 对该物品进行选择
+            leftv = 0
+            rightv = 0
+            if wi+w[lev] < C:
+                leftv = dfs(lev+1,wi+w[lev],val+v[lev])
+            #对该物品不选择
+            rightv = dfs(lev+1,wi,val)
+
+            return max(leftv,rightv)
+        return dfs(0,0,0)
+
+def find_Path(pic:list,s:list,e:list)->int:
+    #定义四个方向 向右，向下   向左，  向上
+    pic[s[0]][s[1]] = 1
+    direct = [[0,1],[1,0],[0,-1],[-1,0]]
+    def dfs(x:int,y:int,)->int:
+        if x==e[0] and y==e[1]:
+            return 1
+        count = 0
+        for dx,dy in direct:
+            x1,y1 = x+dx, y+dy
+            if pic[x1][y1] ==0:
+                pic[x1][y1] = 1
+                count += dfs(x1,y1)
+                pic[x1][y1] = 0
+        return count
+    return dfs(s[0],s[1])
+def find_Path1(pic: list, s: list, e: list) -> int:
+    # 深拷贝迷宫
+    temp = [row[:] for row in pic]
+    direct = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+    rows = len(temp)
+    cols = len(temp[0])
+
+    def dfs(x: int, y: int) -> int:
+        if x == e[0] and y == e[1]:
+            return 1
+        count = 0
+        for dx, dy in direct:
+            x1, y1 = x + dx, y + dy
+            # 边界检查且为可通过
+            if 0 <= x1 < rows and 0 <= y1 < cols and temp[x1][y1] == 0:
+                temp[x1][y1] = 1
+                count += dfs(x1, y1)
+                temp[x1][y1] = 0
+        return count
+
+    # 标记起点为已访问
+    temp[s[0]][s[1]] = 1
+    return dfs(s[0], s[1])
+
+
+def find_paths(maze, start, end):
+    """
+    计算从起点到终点的所有路径数量
+
+    参数:
+    maze: 二维列表，0表示可通过，1表示墙
+    start: 起点坐标 (行, 列)
+    end: 终点坐标 (行, 列)
+
+    返回:
+    路径数量
+    """
+    # 深拷贝迷宫，避免修改原数据
+    temp = [row[:] for row in maze]
+
+    # 方向：右、下、左、上
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+    rows = len(temp)
+    cols = len(temp[0])
+
+    # 检查坐标是否在迷宫内且可通过
+    def is_valid(x, y):
+        return 0 <= x < rows and 0 <= y < cols and temp[x][y] == 0
+
+    def dfs(x, y):
+        # 到达终点，找到一条路径
+        if x == end[0] and y == end[1]:
+            return 1
+
+        total_paths = 0
+        # 标记当前位置为已访问
+        temp[x][y] = 1
+
+        # 尝试四个方向
+        for dx, dy in directions:
+            new_x, new_y = x + dx, y + dy
+            if is_valid(new_x, new_y):
+                total_paths += dfs(new_x, new_y)
+
+        # 回溯：恢复当前位置为未访问
+        temp[x][y] = 0
+
+        return total_paths
+
+    # 确保起点和终点可通过
+    if (temp[start[0]][start[1]] == 1 or
+            temp[end[0]][end[1]] == 1):
+        return 0
+
+    # 从起点开始搜索
+    return dfs(start[0], start[1])
+
+
+def is_valid_color(node, color, graph, colors):
+   for neighbor in range(len(graph)):
+       if graph[node][neighbor] == 1 and colors[neighbor] == color:
+           return False
+   return True
+def graph_coloring(graph, m_colors, colors, node):
+   if node == len(graph):
+       return True # 所有节点已成功着色
+   for color in range(1, m_colors + 1):
+       if is_valid_color(node, color, graph, colors):
+           colors[node] = color
+           if graph_coloring(graph, m_colors, colors, node + 1):
+               return True
+           colors[node] = 0 # 回溯
+   return False
+# 示例输入
+graph = [
+   [0, 1, 1, 1],
+   [1, 0, 1, 0],
+   [1, 1, 0, 1],
+   [1, 0, 1, 0]
+]
+m_colors = 3
+colors = [0] * len(graph)
+if graph_coloring(graph, m_colors, colors, 0):
+   print("找到一种可行的着色方案:", colors)
+else:
+   print("无法找到可行的着色方案")
