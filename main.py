@@ -50,11 +50,20 @@ def bound(node, capacity, items, n):
     if node.weight >= capacity:
         return 0
 
-    j = node.level+1
-    if j >= n:
-        return 0
+    # 初始化上界为当前价值
     profit_bound = node.profit
-    profit_bound+=  ((capacity-node.weight)*items[j].ratio)
+    total_weight = node.weight
+    j = node.level + 1
+
+    # 贪心地添加物品，直到不能再添加为止
+    while j < n and total_weight + items[j].weight <= capacity:
+        total_weight += items[j].weight
+        profit_bound += items[j].value
+        j += 1
+
+    # 如果还有剩余物品，添加一部分以计算上界
+    if j < n:
+        profit_bound += (capacity - total_weight) * items[j].ratio
 
     return profit_bound
 
@@ -88,11 +97,11 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
             continue
 
         # 处理左子节点（选择下一个物品）
-        next_level = current_node.level + 1
-        left_weight = current_node.weight + items[next_level].weight
-        left_profit = current_node.profit + items[next_level].value
+        left_level = current_node.level + 1
+        left_weight = current_node.weight + items[left_level].weight
+        left_profit = current_node.profit + items[left_level].value
         left_items = current_node.items.copy() #该层选择哪些物品拷贝过来
-        left_items.append(next_level) # 将该物品加入候选单中
+        left_items.append(left_level) # 将该物品加入候选单中
 
         # 如果重量不超过容量且价值更大，更新最大值
         if left_weight <= capacity and left_profit > max_profit:
@@ -100,28 +109,69 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
             best_items = left_items.copy()
 
         # 计算左子节点的bound
-        left_bound = bound(Node(next_level, left_profit, left_weight, 0, left_items),
+        left_bound = bound(Node(left_level, left_profit, left_weight, 0, left_items),
                            capacity, items, n)
 
         # 如果bound大于当前最大profit，则加入堆
         if left_bound > max_profit:
-            left_node = Node(next_level, left_profit, left_weight, left_bound, left_items)
+            left_node = Node(left_level, left_profit, left_weight, left_bound, left_items)
             heapq.heappush(max_heap, left_node)
 
         # 处理右子节点（不选择下一个物品）
-        right_bound = bound(Node(next_level, current_node.profit, current_node.weight, 0, current_node.items),
+        right_bound = bound(Node(left_level, current_node.profit, current_node.weight, 0, current_node.items),
                             capacity, items, n)
 
         # 如果bound大于当前最大profit，则加入堆
         if right_bound > max_profit:
-            right_node = Node(next_level, current_node.profit, current_node.weight, right_bound, current_node.items)
+            right_node = Node(left_level, current_node.profit, current_node.weight, right_bound, current_node.items)
             heapq.heappush(max_heap, right_node)
 
     # 返回最大价值和选择的物品索引
     return max_profit, best_items
 
+def branch_and_bound_knapsack1(capacity, weights, values, n):
+    # 创建物品列表并按价值重量比排序
+    items = [Item(weights[i], values[i]) for i in range(n)]
+    items.sort()  # 按价值重量比降序排列
+    # 初始化最大堆
+    max_heap = []
+    # 创建根节点（未选择任何物品）
+    root = Node(-1, 0, 0, 0, [])
+    root.bound = bound(root, capacity, items, n)
+    max_heap.append(root)
+    max_profit = 0
+    best_items = []
+    while max_heap:
+        node = max_heap.pop(0)
+        if node.bound < max_profit:
+            continue
+        # 如果节点，因为层次从-1开始，n-1的节点已经是叶子节点
+        if node.level == n - 1:
+            continue
+        # 处理左节点
+        left_level = node.level + 1
+        left_weight = node.weight + items[left_level].weight
+        left_profit = node.profit + items[left_level].value
+        left_items = node.items.copy()
+        left_items.append(left_level)
+
+        if left_weight <= capacity and left_profit > max_profit:
+            max_profit = left_profit
+            best_items = left_items.copy()
+        left_node = Node(left_level, left_profit, left_weight, 0,left_items)
+        left_bound = bound(left_node, capacity, items, n)
+        if left_bound > max_profit:
+            left_node.bound = left_bound
+            max_heap.append(left_node)
 
 
+        right_node = Node(node.level+1, node.profit, node.weight, 0, node.items)
+        right_bound = bound(right_node, capacity, items, n)
+
+        if right_bound > max_profit:
+            right_node.bound = right_bound
+            max_heap.append(right_node)
+    return max_profit, best_items
 
 
 if __name__ == '__main__':
@@ -174,32 +224,24 @@ if __name__ == '__main__':
     # s = Recall()
     # s.subsets_bit([1,2,3])
 
+    # capacity = 5
+    # weights = [2,4,5,3]
+    # values = [12,16,15,6]
     capacity = 5
-    weights = [2,4,5,3]
-    values = [12,16,15,6]
+    weights = [1,2,3]
+    values = [3,3.2,3.3]
     n = len(values)
 
-    max_profit, selected_items = branch_and_bound_knapsack(capacity, weights, values, n)
+    max_profit, selected_items = branch_and_bound_knapsack1(capacity, weights, values, n)
 
     print("最大价值:", max_profit)
     print("选择的物品索引:", selected_items)
     print("对应的重量:", [weights[i] for i in selected_items])
     print("对应的价值:", [values[i] for i in selected_items])
 
-    print("***************")
-    s = Recall()
-    l = s.recallKnap(weights, values, capacity)
-    print(l)
-    print("***************")
-    s = Recall()
-    pic = [
-    [1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,0,1],
-    [1,0,1,0,0,0,0,1],
-    [1,0,0,0,1,0,0,1],
-    [1,0,0,0,0,0,0,1],
-    [1,0,1,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1]
-]
-    res =find_Path(pic,[5,1],[5,6])
-    print(res)
+#     print("***************")
+#     s = Recall()
+#     l = s.recallKnap(weights, values, capacity)
+#     print(l)
+#     print("***************")
+#     s = Recall()

@@ -111,7 +111,7 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
         # 如果bound大于当前最大profit，则加入堆
         if left_bound > max_profit:
             left_node = Node(next_level, left_profit, left_weight, left_bound, left_items)
-            heapq.heappush(max_heap, left_node)
+            max_heap.append(left_node)
 
         # 处理右子节点（不选择下一个物品）
         right_bound = bound(Node(next_level, current_node.profit, current_node.weight, 0, current_node.items),
@@ -120,13 +120,71 @@ def branch_and_bound_knapsack(capacity, weights, values, n):
         # 如果bound大于当前最大profit，则加入堆
         if right_bound > max_profit:
             right_node = Node(next_level, current_node.profit, current_node.weight, right_bound, current_node.items)
-            heapq.heappush(max_heap, right_node)
+            max_heap.append(right_node)
+
 
     # 返回最大价值和选择的物品索引
     return max_profit, best_items
 
-# 示例使用
 
+
+# 单调队列实现
+def branch_and_bound_knapsack1(capacity, weights, values, n):
+    # 创建物品列表并按价值重量比排序
+    items = [Item(weights[i], values[i]) for i in range(n)]
+    items.sort()  # 按价值重量比降序排列
+    # 初始化最大堆
+    max_heap = []
+    # 创建根节点（未选择任何物品）
+    root = Node(-1, 0, 0, 0, [])
+    root.bound = bound(root, capacity, items, n)
+    max_heap.append(root)
+    max_profit = 0
+    best_items = []
+    while max_heap:
+        node = max_heap.pop(0)
+        if node.bound < max_profit:
+            continue
+        # 如果节点，因为层次从-1开始，n-1的节点已经是叶子节点
+        if node.level == n - 1:
+            continue
+        # 处理左节点
+        left_level = node.level + 1
+        left_weight = node.weight + items[left_level].weight
+        left_profit = node.profit + items[left_level].value
+        left_items = node.items.copy()
+        left_items.append(left_level)
+
+        if left_weight <= capacity and left_profit > max_profit:
+            max_profit = left_profit
+            best_items = left_items.copy()
+        left_node = Node(left_level, left_profit, left_weight, 0,left_items)
+        left_bound = bound(left_node, capacity, items, n)
+        if left_bound > max_profit:
+            left_node.bound = left_bound
+            max_heap.append(left_node)
+
+
+        right_node = Node(node.level+1, node.profit, node.weight, 0, node.items)
+        right_bound = bound(right_node, capacity, items, n)
+
+        if right_bound > max_profit:
+            right_node.bound = right_bound
+            max_heap.append(right_node)
+    return max_profit, best_items
+
+# 示例使用
+    #(1)
+    # capacity = 5
+    # weights = [2,4,5,3]
+    # values = [12,16,15,6]
+    # n = len(values)
+    #(2)
+    # capacity = 5
+    # weights = [1,2,3]
+    # values = [3,3.2,3.3]
+    # n = len(values)
+    # (3)
     # capacity = 10
     # weights = [4, 7, 5, 3]
     # values = [40, 42, 25, 12]
