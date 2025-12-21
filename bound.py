@@ -1,4 +1,7 @@
 import heapq
+import sys
+
+from fontTools.ttLib.ttVisitor import visit
 
 from Dp import TreeNode
 
@@ -196,3 +199,96 @@ def branch_and_bound_knapsack1(capacity, weights, values, n):
     # print("选择的物品索引:", selected_items)
     # print("对应的重量:", [weights[i] for i in selected_items])
     # print("对应的价值:", [values[i] for i in selected_items])
+
+
+
+
+# 任务分配问题
+class Task:
+    def __init__(self,v:int,lb:int,lev:int,res:list,target:int,visited:list):
+        self.v = v # 当前节点的价值
+        self.lb = lb # 通过限界函数计算的最小值 ，下限
+        self.lev = lev # 当前层
+        self.res = res # 解向量
+        self.target = target # 当前目标值的上限，可能的解
+        self.visited = visited # 当前拜访的列节点（标记任务是否被访问）
+    def __lt__(self, other):
+        return self.lb < other.lb # 根据lb计算优先级
+
+
+
+# 当是根节点的时候，可以通过贪心算法算出该问题的上界和下界
+def get_bound(Node:Task,task:list):# 找根节点的下界，只需要找到每个人员完成任务的最小值即可
+    down = Node.v
+    lev = Node.lev
+    n = len(task)
+    for i in range(lev+1,n):
+        temp = task[i][0]
+        for j in range(n):
+            if task[i][j] < temp:
+                temp = task[i][j]
+
+        down += temp
+    return down
+
+def get_target(Node:Task,task:list): #此时需要利用贪心算法求上界，该上界需要满足每个员工都有任务
+    n = len(task)
+    down = Node.v
+    lev = Node.lev
+    vis = Node.visited.copy()
+    for i in range(lev+1,n):
+        temp = sys.maxsize
+        fl = 0
+        for j in range(n):
+            if task[i][j] < temp and vis[j] == 0:
+                fl = j
+                temp = task[i][j]
+        vis[fl] = 1
+        down += temp
+    return down
+
+def mission_problem(task:list):
+    n = len(task)
+
+    myheap = []
+    root = Task(0,0,-1,[],0,[0,0,0,0])
+    heapq.heappush(myheap,root)
+
+    # 保存当前目标函数的最优值
+    min_profit = get_target(root,task)
+    best_items = root.res
+    root.lb = get_bound(root,task)
+    while myheap:
+        node = heapq.heappop(myheap)
+        if node.lev == n - 1: # 如果是最后的叶子节点直接出队
+            continue
+        # 通过让node出队，然后产生所有子节点，然后判断这些节点是否入队
+
+        for i in range(n):
+            if node.visited[i] == 0:
+                next_lev = node.lev + 1
+
+                next_v = node.v + task[next_lev][i]
+                next_lb = 0
+                next_res = node.res.copy()
+                next_res.append(i)
+                next_target = 0
+                next_visited = node.visited.copy()
+                next_visited[i] = 1
+                temp = Task(next_v,next_lb,next_lev,next_res,next_target,next_visited)
+                temp.lb = get_bound(temp,task)
+                temp.target = get_target(temp,task)
+                # 目标值的更新
+                if temp.target < min_profit:
+                    min_profit = temp.target
+                # 下限界函数满足条件就入队
+                if temp.lb <= min_profit:
+                    min_profit = temp.target
+                    heapq.heappush(myheap,temp)
+                    if temp.target == min_profit:
+                        best_items = temp.res.copy()
+    print(min_profit)
+    print(best_items)
+
+
+
