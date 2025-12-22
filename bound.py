@@ -225,9 +225,8 @@ def get_bound(Node:Task,task:list):# 找根节点的下界，只需要找到每�
     for i in range(lev+1,n):
         temp = task[i][0]
         for j in range(n):
-            if task[i][j] < temp:
+            if task[i][j] < temp:# 每次获取最小值，得到下限
                 temp = task[i][j]
-
         down += temp
     return down
 
@@ -263,11 +262,9 @@ def mission_problem(task:list):
         if node.lev == n - 1: # 如果是最后的叶子节点直接出队
             continue
         # 通过让node出队，然后产生所有子节点，然后判断这些节点是否入队
-
         for i in range(n):
             if node.visited[i] == 0:
                 next_lev = node.lev + 1
-
                 next_v = node.v + task[next_lev][i]
                 next_lb = 0
                 next_res = node.res.copy()
@@ -289,6 +286,7 @@ def mission_problem(task:list):
                         best_items = temp.res.copy()
     print(min_profit)
     print(best_items)
+    return min_profit,best_items
 
 
 
